@@ -1,8 +1,7 @@
-import java.util.*;
-
 /**
  * cifradecesar
  */
+
 public class cifradecesar {
 
     public static int verificarIndex(char c){
@@ -53,15 +52,12 @@ public class cifradecesar {
         
         int chave = 3;
 
-        Scanner scan = new Scanner(System.in);
-
-        String str = scan.nextLine();
+        String str = MyIO.readString();
 
         String result = criptografar(str, chave);
 
         System.out.println(result);
 
-        scan.close();
     }
 
 }

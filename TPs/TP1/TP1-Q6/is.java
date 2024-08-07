@@ -128,12 +128,11 @@ public class is {
     
     public static void main(String[] args) {
         
-        Scanner scan = new Scanner(System.in);
         String str = "";
 
         do{
 
-            str = scan.nextLine();
+            str = MyIO.readString();
 
             if(!fim(str)){
 
@@ -165,7 +164,6 @@ public class is {
 
         }while(!fim(str));
 
-        scan.close();
     }
 
 }

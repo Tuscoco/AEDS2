@@ -8,8 +8,6 @@ public class arquivoemjava {
 
         try{
 
-            Scanner scan = new Scanner(System.in);
-
             RandomAccessFile file = new RandomAccessFile("tp1q8.txt", "rw");
     
             file.writeInt(n);
@@ -18,14 +16,13 @@ public class arquivoemjava {
     
             for(i = 0; i < n;i++){
     
-                int a = scan.nextInt();
+                int a = MyIO.readInt();
     
                 file.writeInt(a);
     
             }
     
             file.close();
-            scan.close();
 
         }catch(IOException e){
             e.getMessage();
@@ -55,9 +52,7 @@ public class arquivoemjava {
     
     public static void main(String[] args) {
         
-        Scanner scan = new Scanner(System.in);
-
-        int n = scan.nextInt();
+        int n = MyIO.readInt();
 
         escreverArquivo(n);
 

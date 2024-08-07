@@ -1,6 +1,5 @@
 import java.util.*;
 
-
 public class palindromorecursivo {
 
     public static boolean fim(String str){
@@ -38,11 +37,10 @@ public class palindromorecursivo {
     public static void main(String[] args) {
         
         String str;
-        Scanner scan = new Scanner(System.in);
 
         do{
 
-            str = scan.nextLine();
+            str = MyIO.readString();
 
             if(!fim(str)){
 
@@ -55,8 +53,6 @@ public class palindromorecursivo {
             }
 
         }while(!fim(str));
-
-        scan.close();
         
     }
 

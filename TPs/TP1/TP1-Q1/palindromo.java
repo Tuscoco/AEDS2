@@ -1,8 +1,7 @@
-import java.util.*;
-
 /**
  * palindromo
  */
+
 public class palindromo {
 
     public static boolean fim(String str){
@@ -41,11 +40,10 @@ public class palindromo {
     public static void main(String[] args) {
         
         String str;
-        Scanner scan = new Scanner(System.in);
 
         do{
 
-            str = scan.nextLine();
+            str = MyIO.readString();
 
             if(!fim(str)){
 
@@ -58,8 +56,6 @@ public class palindromo {
             }
 
         }while(!fim(str));
-
-        scan.close();
         
     }
 

@@ -44,11 +44,10 @@ public class alteracaoaleatoria {
     
     public static void main(String[] args) {
         
-        Scanner scan = new Scanner(System.in);
         String[] str = new String[100];
         int i = 0;
 
-        while(!fim(str[i] = scan.nextLine())){
+        while(!fim(str[i] = MyIO.readString())){
 
             if(!fim(str[i])){
 
@@ -63,9 +62,7 @@ public class alteracaoaleatoria {
         for(int j = 0; j < i;j++){
             System.out.println(str[j]);
         }
-
-        scan.close();
-
+        
     }
 
 }
