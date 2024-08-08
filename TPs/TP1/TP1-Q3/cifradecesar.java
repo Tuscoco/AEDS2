@@ -32,7 +32,7 @@ public class cifradecesar {
 
             int index = verificarIndex(strchar[i]);
 
-            if(index + chave > alfabeto.length){
+            if(index + chave >= alfabeto.length){
                 int temp = index + chave;
 
                 temp -= alfabeto.length;

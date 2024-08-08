@@ -1,4 +1,3 @@
-import java.util.*;
 
 public class palindromorecursivo {
 
@@ -15,22 +14,29 @@ public class palindromorecursivo {
 
     }
 
-    static int n = 0;
+    public static boolean ehPalindromo(String str){
+        return ehPalindromo(str, 0);
+    }
 
-    public static boolean ehPalindromo(String str, int length, int i){
+    public static boolean ehPalindromo(String str,int c){
 
-        boolean resultado = true;
+        boolean resultado;
 
-        if(str.charAt(n) != str.charAt(length)){
+        if(c == str.length()/2){
+
+            resultado = true;
+
+        }else if(str.charAt(c) != str.charAt(str.length() - c - 1)){
+
             resultado = false;
-            return resultado;
+
+        }else{
+
+            return ehPalindromo(str, c + 1);
+
         }
 
-        if(n == str.length()/2){
-            return resultado;
-        }
-
-        return ehPalindromo(str, length - 1, n + 1);
+        return resultado;
 
     }
     
@@ -44,7 +50,7 @@ public class palindromorecursivo {
 
             if(!fim(str)){
 
-                if(ehPalindromo(str,str.length(),n)){
+                if(ehPalindromo(str)){
                     System.out.println("SIM");
                 }else{
                     System.out.println("NAO");
@@ -57,5 +63,3 @@ public class palindromorecursivo {
     }
 
 }
-
-////////////ERRADO
