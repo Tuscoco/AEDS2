@@ -1,3 +1,4 @@
+import java.util.*;
 
 public class palindromorecursivo {
 
@@ -42,11 +43,13 @@ public class palindromorecursivo {
     
     public static void main(String[] args) {
         
-        String str;
+        Scanner scan = new Scanner(System.in);
+        String str = "SLA";
 
         do{
 
-            str = MyIO.readString();
+            str = scan.nextLine();
+            //str = MyIO.readString();
 
             if(!fim(str)){
 
@@ -59,6 +62,8 @@ public class palindromorecursivo {
             }
 
         }while(!fim(str));
+
+        scan.close();
         
     }
 

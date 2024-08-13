@@ -16,6 +16,7 @@ bool palindromo(char* string)
             resultado = false;
             i = length;
         }
+        
     }
 
     return resultado;

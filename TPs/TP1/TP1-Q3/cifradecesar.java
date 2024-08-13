@@ -17,19 +17,16 @@ public class cifradecesar {
 
             if(letra + chave > 126){
 
-                if(str.charAt(i) == '�'){
+                int temp = letra + chave;
 
-                    resultadochar[i] = (char) (letra + chave);
-
-                }else{
-
-                    int temp = letra + chave;
-
-                    temp -= 94;
+                temp -= 94;
     
-                    resultadochar[i] = (char) temp;
+                resultadochar[i] = (char) temp;
 
-                }
+
+            }else if(letra < 32 || letra > 126 || (char) letra == '�'){
+
+                resultadochar[i] = (char) letra;
 
             }else{
 
@@ -59,6 +56,22 @@ public class cifradecesar {
         return resultado;
 
     }
+
+    public static String tratarString(String str){
+
+        char[] array = str.toCharArray();
+
+        for(int i = 0;i < str.length();i++){
+
+            if(array[i] == 'ﾢ'){
+                array[i] = '�';
+            }
+
+        }
+
+        return new String(array);
+
+    }
     
     public static void main(String[] args) {
 
@@ -72,7 +85,9 @@ public class cifradecesar {
 
             if(!fim(str)){
 
-                System.out.println(criptografar(str));
+                String temp = criptografar(str);
+
+                System.out.println(tratarString(temp));
 
             }
 
