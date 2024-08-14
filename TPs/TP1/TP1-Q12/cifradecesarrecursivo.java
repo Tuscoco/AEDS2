@@ -55,6 +55,20 @@
 
         return resultado;
     }
+
+    public static boolean fim(String str){
+
+        boolean resultado = false;
+
+        if(str.charAt(0) == 'F' && str.charAt(1) == 'I' && str.charAt(2) == 'M'){
+
+            resultado = true;
+
+        }
+
+        return resultado;
+
+    }
     
     public static void main(String[] args) {
         

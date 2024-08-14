@@ -1,68 +1,87 @@
 import java.util.*;
 
+/**
+ * alteracaoaleatoria
+ */
+
 public class alteracaoaleatoria {
 
-    static Random gerador = new Random();
-    
+    public static String substituir(String str,char c,char s){
+
+        /*
+         * Esse método compara cada caractere da string com o caractere na variavel c, que foi gerado randomicamente;
+         * Se a comparação der verdadeiro, o caractere irá ser substituido pelo caractere na variavel s, que foi gerado randomicamente;
+         * Se a comparação der falso, o caractere será mantido e vai ser adicionado na variavel resultado;
+         */
+
+        String resultado = new String();
+        
+        for(int i = 0;i < str.length();i++){
+
+            if(str.charAt(i) == c){
+
+                resultado += s;
+
+            }else{
+
+                resultado += str.charAt(i);
+
+            }
+
+        }
+
+        return resultado;
+
+    }
+
     public static boolean fim(String str){
+        
+        /*
+         * Esse método basicamente verifica se a String enviada contem a palavra "FIM";
+         * Caso verdadeiro, o metodo retorna true;
+         */
 
         boolean resultado = false;
 
-        if(str.equals("FIM")){
+        if(str.charAt(0) == 'F' && str.charAt(1) == 'I' && str.charAt(2) == 'M'){
+
             resultado = true;
+
         }
 
         return resultado;
-    }
 
-    public static char charAleatorio(){
-
-        char caractere = ((char)('a' + (Math.abs(gerador.nextInt()) % 26)));
-
-        return caractere;
-
-    }
-
-    public static String trocar(String str){
-
-        char caractere1 = charAleatorio();
-        char caractere2 = charAleatorio();
-        char[] strchar = str.toCharArray();
-
-        for(int i = 0; i < str.length();i++){
-
-            if(str.charAt(i) == caractere1){
-                strchar[i] = caractere2;
-            }
-            
-        }
-
-        String resultado = new String(strchar);
-
-        return resultado;
     }
     
     public static void main(String[] args) {
         
-        String[] str = new String[100];
-        int i = 0;
+        Random gerador = new Random(); 
+        gerador.setSeed(4);
 
-        while(!fim(str[i] = MyIO.readString())){
+        Scanner scan = new Scanner(System.in);
 
-            if(!fim(str[i])){
+        String str = "";
+        String strResultante = str;
 
-                str[i] = trocar(str[i]);
+        do{
+
+            str = scan.nextLine();
+
+            if(!fim(str)){
+
+                char caractere = (char)('a' + (Math.abs(gerador.nextInt()) % 26));
+                char caractereSubstituto = (char)('a' + (Math.abs(gerador.nextInt()) % 26));
+
+                strResultante = substituir(str, caractere, caractereSubstituto);
+
+                System.out.println(strResultante);
 
             }
-            
-            i++;
-            
-        }
 
-        for(int j = 0; j < i;j++){
-            System.out.println(str[j]);
-        }
-        
+        }while(!fim(str));
+
+        scan.close();
+
     }
-
+    
 }

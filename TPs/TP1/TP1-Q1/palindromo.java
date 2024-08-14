@@ -6,17 +6,18 @@ public class palindromo {
 
     public static boolean fim(String str){
 
-        boolean fim = false;
+        boolean resultado = false;
 
-        if(str.equals("FIM"))
-        {
-            fim = true;
+        if(str.charAt(0) == 'F' && str.charAt(1) == 'I' && str.charAt(2) == 'M'){
+
+            resultado = true;
+
         }
 
-        return fim;
+        return resultado;
 
     }
-
+    
     public static boolean ehPalindromo(String str){
 
         boolean resultado = true;
