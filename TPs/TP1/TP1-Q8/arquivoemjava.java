@@ -1,6 +1,4 @@
-import java.util.*;
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.io.*;
 
 public class arquivoemjava {
     
@@ -8,24 +6,25 @@ public class arquivoemjava {
 
         try{
 
-            RandomAccessFile file = new RandomAccessFile("tp1q8.txt", "rw");
-    
-            file.writeInt(n);
-    
-            int i = 0;
-    
-            for(i = 0; i < n;i++){
-    
-                int a = MyIO.readInt();
-    
-                file.writeInt(a);
-    
+            RandomAccessFile file = new RandomAccessFile("tp1q8.txt","rw");
+            double v;
+
+            file.seek(0);
+
+            for(int i = 0;i < n;i++){
+
+                v = MyIO.readDouble();
+
+                file.writeDouble(v);
+
             }
-    
+
             file.close();
 
         }catch(IOException e){
+
             e.getMessage();
+
         }
 
     }
@@ -34,24 +33,40 @@ public class arquivoemjava {
 
         try{
 
-            RandomAccessFile file = new RandomAccessFile("tp1q8.txt", "r");
+            RandomAccessFile file = new RandomAccessFile("tp1q8.txt","r");
+            long fileLength = file.length();
+            double v;
 
-            file.seek(n);
-    
-            for(int i = 0; i <= n;i++){
-                System.out.println(file.read());
+            for(long i = fileLength - 8 ;i >= 0;i -= 8){
+
+                file.seek(i);
+
+                v = file.readDouble();
+
+                if(v - ((int) v) == 0){
+
+                    System.out.printf("%.0f\n",v);
+
+                }else{
+
+                    System.out.println(v);
+
+                }
+
             }
-    
+
             file.close();
 
         }catch(IOException e){
+
             e.getMessage();
+
         }
 
     }
     
-    public static void main(String[] args) {
-        
+    public static void main(String[] args){
+
         int n = MyIO.readInt();
 
         escreverArquivo(n);
@@ -62,4 +77,3 @@ public class arquivoemjava {
 
 }
 
-/////////////////ERRADO
