@@ -41,7 +41,10 @@ public class cifradecesar {
 
         }
 
-        String resultado = new String(resultadochar);
+        String result = new String(resultadochar);
+
+        String resultado = result.replace("ï¿½","�");
+
         return resultado;
 
     }
@@ -70,7 +73,7 @@ public class cifradecesar {
 
         do{
 
-            str = MyIO.readString();
+            str = MyIO.readLine();
 
             if(!fim(str)){
 
