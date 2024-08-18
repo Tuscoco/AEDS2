@@ -4,7 +4,7 @@
 void escreverArquivo(int n)
 {
 
-    FILE *f = fopen("teste.txt","w");
+    FILE *f = fopen("tp1q9.txt","w");
     double v;
 
     for(int i = 0;i < n;i++){
@@ -19,19 +19,21 @@ void escreverArquivo(int n)
 
 }
 
-/*void lerArquivo(int n)
+void lerArquivo(int n)
 {
 
     FILE *f = fopen("tp1q9.txt","r");
     double v;
 
+    int size = sizeof(double);
+    
     fseek(f,0,SEEK_END);
     
     long length = ftell(f);
 
-    for(long i = length - 8;i >= 0;i -= 8){
+    for(int i = 1;i <= n;i++){
 
-        fseek(f,i,SEEK_SET);
+        fseek(f,-i * size,SEEK_SET);
         
         fscanf(f,"%lf",&v);
         
@@ -41,9 +43,9 @@ void escreverArquivo(int n)
 
     fclose(f);
 
-}*/
+}
 
-void lerArquivo(int n)
+/*void lerArquivo(int n)
 {
 
     FILE *f = fopen("teste.txt","r");
@@ -66,7 +68,7 @@ void lerArquivo(int n)
 
     free(array);
 
-}
+}*/
 
 int main()
 {
