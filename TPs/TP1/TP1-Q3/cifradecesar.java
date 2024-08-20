@@ -1,3 +1,8 @@
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Set;
+import java.util.*;
+
 /**
  * cifradecesar
  */
@@ -69,21 +74,24 @@ public class cifradecesar {
     
     public static void main(String[] args) {
 
-        String str = "START";
+        Scanner scan = new Scanner(System.in);
+        String texto;
 
         do{
 
-            str = MyIO.readLine();
+            texto = scan.nextLine();
 
-            if(!fim(str)){
+            if(!fim(texto)){
 
-                String temp = criptografar(str);
+                String temp = criptografar(texto);
 
                 System.out.println(temp);
 
             }
 
-        }while(!fim(str));
+        }while(!fim(texto));
+
+        scan.close();
 
     }
 

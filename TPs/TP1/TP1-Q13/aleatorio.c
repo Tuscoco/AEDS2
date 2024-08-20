@@ -3,25 +3,25 @@
 #include <string.h>
 #include <stdbool.h>
 
-char* substituir(char* str,char c,char s)
+char* substituir(char* str,char c,char s,int cont)
 {
 
-    int length = strlen(str);
+    if(str[cont] == '\0'){
+        return;
+    }
 
-    for(int i = 0;i < length;i++){
+    if(str[cont] == c){
 
-        if(str[i] == c){
-
-            str[i] = s;
-
-        }
+        str[cont] = s;
 
     }
 
-    char* resultante = str;
+    return substituir(str,c,s,cont + 1);
 
-    return resultante;
+}
 
+char* chamarSubstituir(char* str,char c,char s){
+    return substituir(str,c,s,0);
 }
 
 bool fim(char* str)
@@ -52,12 +52,10 @@ int main()
 
         if(!fim(str)){
 
-            int num1 = 97 + rand() % (122 - 97 + 1);
-            char c = (char) num1;
-            int num2 = 97 + rand() % (122 - 97 + 1);
-            char s = (char) num2;
+            char c = (char) (97 + rand() % (122 - 97 + 1));
+            char s = (char) (97 + rand() % (122 - 97 + 1));
 
-            char* subs = substituir(str,c,s);
+            char* subs = chamarSubstituir(str,c,s);
 
             printf("%s\n", subs);
 

@@ -1,3 +1,5 @@
+import java.util.*;
+
 /**
  * cifradecesar
  */
@@ -69,11 +71,12 @@
     
     public static void main(String[] args) {
 
+        Scanner scan = new Scanner(System.in);
         String str = "START";
 
         do{
 
-            str = MyIO.readLine();
+            str = scan.nextLine();
 
             if(!fim(str)){
 
@@ -84,6 +87,8 @@
             }
 
         }while(!fim(str));
+
+        scan.close();
 
     }
 
