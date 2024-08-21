@@ -7,7 +7,9 @@ char* substituir(char* str,char c,char s,int cont)
 {
 
     if(str[cont] == '\0'){
-        return;
+
+        return str;
+
     }
 
     if(str[cont] == c){
@@ -46,14 +48,14 @@ int main()
 
     char str[1000];
 
+    char c = (char) ('a' + (rand() % 26));
+    char s = (char) ('a' + (rand() % 26));
+
     do{
 
         scanf(" %[^\n]", str);
 
         if(!fim(str)){
-
-            char c = (char) (97 + rand() % (122 - 97 + 1));
-            char s = (char) (97 + rand() % (122 - 97 + 1));
 
             char* subs = chamarSubstituir(str,c,s);
 

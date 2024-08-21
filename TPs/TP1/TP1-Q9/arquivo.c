@@ -31,13 +31,31 @@ void lerArquivo(int n)
     
     long length = ftell(f);
 
-    for(int i = 1;i <= n;i++){
+    long pos = ftell(f);
 
-        fseek(f,(-i * length),SEEK_END);
+    for(int i = 0;i < n;i++){
+
+        do{
+
+            fseek(f, pos--, SEEK_SET);
+
+        }while(ftell(f) > 0 && fgetc(f) != '\n');
+
+        if (ftell(f) != 0) {
+
+            fseek(f, pos + 2, SEEK_SET);
+
+        } else {
+
+            fseek(f, 0, SEEK_SET);
+
+        }
         
         fscanf(f,"%lf",&v);
         
-        printf("%g\n",v);
+        if(v != 0){
+            printf("%g\n",v);
+        }
 
     }
 
