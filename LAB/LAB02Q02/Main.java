@@ -22,10 +22,22 @@ public class Main {
 
                 int pd = array[i]/100;
                 int dm = (array[i]/10)%10;
-                int ud = array[i]%100;
+                int ud = array[i]%10;
 
                 System.out.print(ud);
                 System.out.print(dm);
+                System.out.print(pd);
+
+            }else if(array[i] >= 1000 && array[i] < 10000){
+
+                int pd = array[i]/1000;
+                int dm1 = (array[i]/100)%10;
+                int dm2 = (array[i]/10)%10;
+                int ud = array[i]%10;
+
+                System.out.print(ud);
+                System.out.print(dm2);
+                System.out.print(dm1);
                 System.out.print(pd);
 
             }else{
@@ -56,12 +68,13 @@ public class Main {
         
         Scanner scan = new Scanner(System.in);
 
-        int c = 0;
+        int n1 = 10,n2 = 10;
 
-        do{
+        while(scan.hasNextInt()){
 
-            int n1 = scan.nextInt(),n2 = scan.nextInt();
-
+            n1 = scan.nextInt();
+            n2 = scan.nextInt();
+            
             int s = (n2 - n1) + 1;
 
             int[] array = new int[s];
@@ -77,9 +90,7 @@ public class Main {
 
             System.out.println("");
 
-            c++;
-
-        }while(c != 3);
+        }
 
         scan.close();
 

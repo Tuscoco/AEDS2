@@ -25,7 +25,7 @@ void lerArquivo(int n)
     FILE *f = fopen("tp1q9.txt","r");
     double v;
 
-    int size = sizeof(double);
+    long size = sizeof(double);
     
     fseek(f,0,SEEK_END);
     
@@ -33,7 +33,7 @@ void lerArquivo(int n)
 
     for(int i = 1;i <= n;i++){
 
-        fseek(f,-i * size,SEEK_SET);
+        fseek(f,(-i * length),SEEK_END);
         
         fscanf(f,"%lf",&v);
         
@@ -44,31 +44,6 @@ void lerArquivo(int n)
     fclose(f);
 
 }
-
-/*void lerArquivo(int n)
-{
-
-    FILE *f = fopen("teste.txt","r");
-    double *array = (double*) malloc(n * sizeof(double));
-    double v;
-
-    for(int i = 0;i < n;i++){
-
-        fscanf(f,"%lf",&v);
-
-        array[i] = v;
-
-    }
-
-    for(int i = n - 1;i >= 0;i--){
-
-        printf("%g\n",array[i]);
-
-    }
-
-    free(array);
-
-}*/
 
 int main()
 {
