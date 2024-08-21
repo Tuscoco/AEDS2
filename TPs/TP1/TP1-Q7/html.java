@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.*;
 import java.net.*;
 
 /**
@@ -8,44 +9,65 @@ import java.net.*;
 public class html {
 
     @SuppressWarnings("deprecation")
-    public static String dadosPagina(String end,String name){
-
-        String resultado = "",line;
+    public static String getHtml(String endereco){
         URL url;
         InputStream is = null;
         BufferedReader br;
-        int a=0,e=0,i=0,o=0,u=0,a1=0,e1=0,i1=0,o1=0,u1=0,a2=0,e2=0,i2=0,o2=0,u2=0,ah=0,eh=0,a3=0,e3=0,i3=0,o3=0,u3=0,consoante=0;
-        int b=0,table=0;
+        String resp = "", line;
+  
+        try {
+           url = new URL(endereco);
+           is = url.openStream();  // throws an IOException
+           br = new BufferedReader(new InputStreamReader(is));
+  
+           while ((line = br.readLine()) != null) {
+              resp += line + "\n";
+           }
+        } catch (MalformedURLException mue) {
+           mue.printStackTrace();
+        } catch (IOException ioe) {
+           ioe.printStackTrace();
+        } 
+  
+        try {
+           is.close();
+        } catch (IOException ioe) {
+           // nothing to see here
+  
+        }
+  
+        return resp;
+     }
 
-        try{
+     public static boolean fim(String str){
 
-            url = new URL(end);
-            is = url.openStream();
-            br = new BufferedReader(new InputStreamReader(is));
+        boolean fim = false;
 
-            while((line = br.readLine()) != null){
+        if(str.equals("FIM")){
 
-                for(int j = 0;j < line.length();j++){
+            fim = true;
 
-                    char caractere = line.charAt(j);
-                    int c = caractere;
-
-                }
-
-            }
-
-        }catch(MalformedURLException mue){
-            mue.getMessage();
-        }catch(IOException e){
-            e.getMessage();
         }
 
-        return resultado;
+        return fim;
 
-    }
-    
+     }
+
     public static void main(String[] args){
         
+        MyIO.setCharset("UTF-8");
+        Scanner scan = new Scanner(System.in);
+
+        String name = "";
+        String endereco = "";
+        String html = "";
+        int br = 0,table = 0,consoantes = 0;
+
+
+        do{}
+
+        scan.close();
+
     }
     
 }
