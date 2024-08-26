@@ -3,27 +3,31 @@
 #include <string.h>
 #include <stdbool.h>
 
-char* substituir(char* str,char c,char s,int cont)
+void substituir(char* str,char c,char s,int cont)
 {
 
-    if(str[cont] == '\0'){
+    if(cont == strlen(str)){
 
-        return str;
+        str = str;
 
-    }
+    }else if(str[cont] != c){
 
-    if(str[cont] == c){
+        str[cont] = str[cont];
+
+        substituir(str,c,s,cont + 1);
+
+    }else{
 
         str[cont] = s;
 
-    }
+        substituir(str,c,s,cont + 1);
 
-    return substituir(str,c,s,cont + 1);
+    }
 
 }
 
-char* chamarSubstituir(char* str,char c,char s){
-    return substituir(str,c,s,0);
+void chamarSubstituir(char* str,char c,char s){
+    substituir(str,c,s,0);
 }
 
 bool fim(char* str)
@@ -44,12 +48,14 @@ bool fim(char* str)
 int main()
 {
 
+    char c;
+    char s;
     srand(4);
 
-    char str[1000];
+    char* str = (char*) malloc(1000 * sizeof(char));
 
-    char c = (char) ('a' + (rand() % 26));
-    char s = (char) ('a' + (rand() % 26));
+    //char c = ('a' + (rand() % 26));
+    //char s = ('a' + (rand() % 26));
 
     do{
 
@@ -57,9 +63,12 @@ int main()
 
         if(!fim(str)){
 
-            char* subs = chamarSubstituir(str,c,s);
+            c = (char)('a' + (rand() % 26));
+            s = (char)('a' + (rand() % 26));
 
-            printf("%s\n", subs);
+            chamarSubstituir(str,c,s);
+
+            printf("%s\n", str);
 
         }
 
