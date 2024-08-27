@@ -1,6 +1,3 @@
-
-import java.util.*;
-
 public class selecao {
     
     public static void swap(int menor,int i,int[] array){
@@ -39,13 +36,23 @@ public class selecao {
         
         int[] array = {10,9,8,7,6,5,4,3,2,1};
 
-        ordenar(array);
-
+        System.out.print("[");
         for(int i = 0;i < array.length;i++){
 
-            System.out.println(array[i]);
+            System.out.print(array[i] + " ");
 
         }
+        System.out.println("]");
+        
+        ordenar(array);
+
+        System.out.print("[");
+        for(int i = 0;i < array.length;i++){
+
+            System.out.print(array[i] + " ");
+
+        }
+        System.out.println("]");
 
     }
 
