@@ -1,3 +1,4 @@
+import java.util.*;
 
 public class isrecursivo {
     
@@ -148,11 +149,12 @@ public class isrecursivo {
     
     public static void main(String[] args) {
         
-        String str = "START";
+        Scanner scan = new Scanner(System.in);
+        String str = "";
 
         do{
 
-            str = MyIO.readLine();
+            str = scan.nextLine();
 
             if(!fim(str)){
 
@@ -185,6 +187,8 @@ public class isrecursivo {
             }
 
         }while(!fim(str));
+
+        scan.close();
 
     }
 

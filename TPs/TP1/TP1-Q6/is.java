@@ -6,6 +6,7 @@ public class is {
 
         int i = 0;
         boolean resultado = true;
+        str = str.replace(",",".");
 
         for(i = 0;i < str.length();i++){
 
@@ -129,12 +130,12 @@ public class is {
     
     public static void main(String[] args) {
         
-        String str = "START";
+        String str = "";
         Scanner scan = new Scanner(System.in);
 
         do{
 
-            str = MyIO.readLine();
+            str = scan.nextLine();
 
             if(!fim(str)){
 
