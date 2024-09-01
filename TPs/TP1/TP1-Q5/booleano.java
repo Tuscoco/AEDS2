@@ -1,65 +1,175 @@
-import java.util.*;
+import java.util.Scanner;
 
-/**
- * booleano
- */
+public class booleano {
 
- public class booleano {
-    
-    public static boolean OR(boolean c,boolean c2){
-        return (c || c2);
-    }
-    
-    public static boolean AND(boolean c,boolean c2){
-        return (c && c2);
-    }
-    
-    public static boolean NOT(boolean c){
-        return !(c);
+    public static int parseInt(char str) {
+        int qnt = str - 48;
+        return qnt;
     }
 
-    public static boolean fim(int n){
+    public static boolean parseBoolean(char str) {
+        return str != '0';
+    }
 
-        boolean resultado = false;
+    public static String substring(String str, int start, int end) {
+        String newStr = new String();
 
-        if(n == 0){
-
-            resultado = true;
-
+        for (int i = start; i < end; i++) {
+            newStr += str.charAt(i);
         }
 
-        return resultado;
+        return newStr;
+    }
+
+    public static String replace(String str, int star, int end, String subReplace) {
+
+        String newStr1 = substring(str, 0, star);
+        String newStr2 = substring(str, end, str.length());
+
+        return newStr1 + subReplace + newStr2;
+    }
+
+    public static char[] getArgs(String str, int index) {
+
+        int contador = 0;
+
+        for (int i = index + 1; str.charAt(i) != ')'; i++) {
+            if (str.charAt(i) == '0' || str.charAt(i) == '1') {
+                contador++;
+            }
+        }
+
+        char[] args = new char[contador];
+
+        for (int i = index + 1, j = 0; str.charAt(i) != ')'; i++) {
+            if (str.charAt(i) == '0' || str.charAt(i) == '1') {
+                args[j] = str.charAt(i);
+                j++;
+            }
+        }
+
+        return args;
+    }
+
+    public static char not(char[] args) {
+
+        if (args[0] == '0') {
+            return '1';
+        } else if (args[0] == '1') {
+            return '0';
+        }
+        return 0;
 
     }
-    
-    public static void main(String[] args){
 
-        Scanner scan = new Scanner(System.in);
+    public static char and(char[] args) {
 
-        int n;
-        
-        do{
+        for (int i = 0; i < args.length; i++) {
+            if (args[i] == '0') {
+                return '0';
+            }
+        }
+        return '1';
 
-            n = scan.nextInt();
+    }
 
-            if(!fim(n)){
+    public static char or(char[] args) {
 
-                int[] letras = new int[n];
-    
-                for(int i = 0;i < n;i++){
-        
-                    letras[i] = scan.nextInt();
-        
+        for (int i = 0; i < args.length; i++) {
+            if (args[i] == '1') {
+                return '1';
+            }
+        }
+        return '0';
+
+    }
+
+    public static String solveEquation(String str) throws Exception {
+
+        char[] args;
+        char result;
+        int end;
+
+        for (int i = (str.length() - 1); i >= 0; i--) {
+            if (str.charAt(i) == '(') {
+                switch (str.charAt(i - 1)) {
+                    case 'd':
+                        args = getArgs(str, i);
+                        result = and(args);
+
+                        for (end = i; str.charAt(end) != ')'; end++)
+                            ;
+                        str = replace(str, i - 3, end + 1, result + "");
+                        i -= 3;
+                        break;
+                    case 't':
+                        args = getArgs(str, i);
+                        result = not(args);
+                        str = replace(str, i - 3, i + 3, result + "");
+                        i -= 3;
+                        break;
+                    case 'r':
+                        args = getArgs(str, i);
+                        result = or(args);
+
+                        for (end = i; str.charAt(end) != ')'; end++)
+                            ;
+                        str = replace(str, i - 2, end + 1, result + "");
+                        i -= 2;
+                        break;
+
+                    default:
+                        throw new Exception("FUDEU");
                 }
+            }
+        }
 
-                String algBoo = scan.nextLine();
+        return substring(str, 0, 1);
+    }
 
+    public static void main(String[] args) throws Exception {
+        Scanner sc = new Scanner(System.in);
+
+        String str = sc.nextLine();
+
+        while (str.charAt(0) != '0') {
+
+            int qnt = parseInt(str.charAt(0));
+
+
+            boolean[] vetor = new boolean[qnt];
+
+
+            if (qnt == 2) {
+                vetor[0] = parseBoolean(str.charAt(2));
+                vetor[1] = parseBoolean(str.charAt(4));
+
+                str = substring(str, 6, str.length());
+
+            } else if (qnt == 3) {
+                vetor[0] = parseBoolean(str.charAt(2));
+                vetor[1] = parseBoolean(str.charAt(4));
+                vetor[2] = parseBoolean(str.charAt(6));
+
+                str = substring(str, 8, str.length());
             }
 
-        }while(!fim(n));
+            for (int i = 0; i < str.length(); i++) {
+                if (str.charAt(i) == 'A') {
+                    str = replace(str, i, i + 1, vetor[0] == false ? "0" : "1");
+                } else if (str.charAt(i) == 'B') {
+                    str = replace(str, i, i + 1, vetor[1] == false ? "0" : "1");
+                } else if (str.charAt(i) == 'C') {
+                    str = replace(str, i, i + 1, vetor[2] == false ? "0" : "1");
+                }
+            }
+            str = solveEquation(str);
+            System.out.println(str);
 
-        scan.close();
+            str = sc.nextLine();
+        }
 
+        sc.close();
     }
-    
+
 }
