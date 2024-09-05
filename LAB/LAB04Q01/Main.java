@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Main {
     
-    public static void ordenar(int[] array,int m){
+    public static void ordenarMod(int[] array,int m){
 
         for(int i = 1;i < array.length;i++){
 
@@ -21,6 +21,58 @@ public class Main {
             }
 
             array[j + 1] = tmp;
+
+        }
+
+    }
+
+    public static void swap(int menor,int i,int[] array){
+
+        int temp = array[menor];
+        array[menor] = array[i];
+        array[i] = temp;
+
+    }
+
+    public static void ordenar(int[] array,int m){
+
+        int n = array.length;
+
+        for(int i = 0;i < (n - 1);i++){
+
+            int menor = i;
+
+            for(int j = i + 1;j < n;j++){
+
+                if((array[menor] % m) == (array[j] % m)){
+
+                    if((array[menor] % 2 == 0) && (array[j] % 2 != 0)){
+
+                        swap(j, i, array);
+
+                    }else if((array[menor] % 2 != 0) && (array[j] % 2 != 0)){
+
+                        if(array[menor] < array[j]){
+
+                            swap(j, i, array);
+
+                        }
+
+                    }else if((array[menor] % 2 == 0) && (array[j] % 2 == 0)){
+
+                        if(array[menor] > array[j]){
+
+                            swap(j, i, array);
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            swap(menor, i, array);
 
         }
 
@@ -48,7 +100,8 @@ public class Main {
 
                 }
 
-                ordenar(array,m);
+                ordenarMod(array,m);
+                ordenar(array, m);
 
                 System.out.println(n + " " + m);
                 for(int i = 0;i < n;i++){
