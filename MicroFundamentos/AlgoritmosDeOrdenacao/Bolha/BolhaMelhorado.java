@@ -1,6 +1,8 @@
 import java.util.*;
 
 public class BolhaMelhorado {
+
+    public static int comp = 0;
     
     public static void swap(int j,int jj,int[] array){
 
@@ -12,17 +14,16 @@ public class BolhaMelhorado {
     
     public static void ordenar(int[] array){
 
-        boolean swapped = true;
-        for(int i = (array.length - 1);i > 0 && swapped;i--){
+        int n = array.length;
 
-            swapped = false;
+        for(int i = (n - 1);i > 0;i--){
 
             for(int j = 0;j < i;j++){
 
+                comp++;
                 if(array[j] > array[j + 1]){
 
                     swap(j, j + 1, array);
-                    swapped = true;
 
                 }
 
@@ -36,7 +37,7 @@ public class BolhaMelhorado {
         
         int[] array = {10,9,8,7,6,5,4,3,2,1};
 
-        System.out.print("[");
+        System.out.print("[ ");
         for(int i = 0;i < array.length;i++){
 
             System.out.print(array[i] + " ");
@@ -46,13 +47,17 @@ public class BolhaMelhorado {
         
         ordenar(array);
 
-        System.out.print("[");
+        System.out.print("[ ");
         for(int i = 0;i < array.length;i++){
 
             System.out.print(array[i] + " ");
 
         }
         System.out.println("]");
+
+        System.out.println();
+
+        System.out.println(comp);
 
     }
 
