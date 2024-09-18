@@ -48,18 +48,18 @@ public class Main {
 
     public static void OP(String str){
 
-        String[] array = str.split(" ");
+        String[] arrayStr = str.split(" ");
 
-        if(array[0].equals("PUSH")){
+        if(arrayStr[0].equals("PUSH")){
 
-            int num = Integer.parseInt(array[1]);
+            int num = Integer.parseInt(arrayStr[1]);
             push(num);
 
-        }else if(array[0].equals("POP")){
+        }else if(arrayStr[0].equals("POP")){
 
             pop();
 
-        }else if(array[0].equals("MIN")){
+        }else if(arrayStr[0].equals("MIN")){
 
             min();
 
