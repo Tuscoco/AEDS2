@@ -155,7 +155,7 @@ class Pokemon{
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         return "[#" + id + " -> " + name + ": " + description + " - " + toStringTypes(types) + " - " + 
-        ToString(abilities) + " - " + weight + "Kg - " + height + "m - " + captureRate + "% - " + isLegendary + " - " + 
+        ToString(abilities) + " - " + weight + "kg - " + height + "m - " + captureRate + "% - " + isLegendary + " - " + 
         generation + " gen] - " + captureDate.format(dtf);
 
     }
@@ -166,7 +166,7 @@ class Pokemon{
         
         if(lista.get(1) != null){
 
-            return "['" + lista.get(0) + ",'" + lista.get(1) + "']";
+            return "['" + lista.get(0) + "', '" + lista.get(1) + "']";
 
         }else{
 
@@ -202,7 +202,7 @@ public class Main {
     
     public static void preencherPokedex(){
 
-        String pokedex = "../pokemon.csv";
+        String pokedex = "pokemon.csv";
 
         try{
 
@@ -233,7 +233,7 @@ public class Main {
                 double weight = segundaParte[1].isEmpty() ? 0 : Double.parseDouble(segundaParte[1]);
                 double height = segundaParte[2].isEmpty() ? 0 : Double.parseDouble(segundaParte[2]);
                 int captureRate = segundaParte[3].isEmpty() ? 0 : Integer.parseInt(segundaParte[3]);
-                boolean isLegendary = segundaParte[4] == "0" ? false : true;
+                boolean isLegendary = segundaParte[4].charAt(0) == '0' ? false : true;
                 LocalDate captureDate = LocalDate.parse(segundaParte[5],dtf);
 
                 Pokemon pokemon = new Pokemon(id, generation, name, description, types, abilities, weight, 
