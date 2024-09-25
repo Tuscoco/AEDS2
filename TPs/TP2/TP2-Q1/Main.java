@@ -202,7 +202,8 @@ public class Main {
     
     public static void preencherPokedex(){
 
-        String pokedex = "pokemon.csv";
+        String pokedex = "/tmp/pokemon.csv";
+        //String pokedex = "pokemon.csv";
 
         try{
 
@@ -286,6 +287,7 @@ public class Main {
                     if(pok.ehId(Integer.parseInt(str))){
     
                         System.out.println(pok.toString().replace("Ã©", "é"));
+                        i = pokemons.size();
     
                     }
 
