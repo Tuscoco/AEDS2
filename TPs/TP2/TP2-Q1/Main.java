@@ -1,5 +1,7 @@
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.RandomAccessFile;
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -203,7 +205,6 @@ public class Main {
     public static void preencherPokedex(){
 
         String pokedex = "/tmp/pokemon.csv";
-        //String pokedex = "pokemon.csv";
 
         try{
 
@@ -266,11 +267,12 @@ public class Main {
 
     }
     
-    public static void main(String[] args){
+    public static void main(String[] args) throws UnsupportedEncodingException{
         
         preencherPokedex();
 
         Scanner scan = new Scanner(System.in);
+        System.setOut(new PrintStream(System.out, true, "UTF-8"));
 
         String str = "";
 
