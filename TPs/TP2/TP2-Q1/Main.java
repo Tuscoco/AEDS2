@@ -1,10 +1,10 @@
 import java.io.IOException;
-import java.io.PrintStream;
 import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.nio.charset.Charset;
 
 
 class Pokemon{
@@ -210,10 +210,14 @@ public class Main {
 
             RandomAccessFile file = new RandomAccessFile(pokedex, "r");
 
+            Charset charset = Charset.forName("UTF-8");
+
             file.readLine();
 
             String linha;
             while((linha = file.readLine()) != null){
+
+                linha = new String(linha.getBytes("ISO-8859-1"), charset);
 
                 String[] dadospok = linha.split("\"");
                 String habilidades = dadospok[1];
@@ -272,7 +276,6 @@ public class Main {
         preencherPokedex();
 
         Scanner scan = new Scanner(System.in);
-        System.setOut(new PrintStream(System.out, true, "UTF-8"));
 
         String str = "";
 
@@ -288,7 +291,7 @@ public class Main {
 
                     if(pok.ehId(Integer.parseInt(str))){
     
-                        System.out.println(pok.toString().replace("Ã©", "é"));
+                        System.out.println(pok.toString());
                         i = pokemons.size();
     
                     }
