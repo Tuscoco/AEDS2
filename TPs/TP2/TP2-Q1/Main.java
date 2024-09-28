@@ -193,6 +193,13 @@ class Pokemon{
         }
 
     }
+
+    //Clonar Pokemon
+    public Pokemon clonar(Pokemon pokemon){
+
+        return new Pokemon(pokemon.id, pokemon.generation, pokemon.name, pokemon.description, pokemon.types, pokemon.abilities, pokemon.weight, pokemon.height, pokemon.captureRate, pokemon.isLegendary, pokemon.captureDate);
+
+    }
 	
 }
 
@@ -291,7 +298,7 @@ public class Main {
 
                     if(pok.ehId(Integer.parseInt(str))){
     
-                        System.out.println(pok.toString());
+                        pok.imprimir();
                         i = pokemons.size();
     
                     }

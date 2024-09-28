@@ -34,10 +34,17 @@ typedef struct pokemon
 
 pokemon pokemons[801];
 
+void substring(const char *original, char *data, int length){
+
+    strncpy(data, original + (strlen(original) - 11), length);
+    data[length] = '\0';
+
+}
+
 void preencherPokedex(){
 
-    //FILE* file = fopen("/tmp/pokemon.csv","r");
-    FILE* file = fopen("pokemon.csv","r");
+    FILE* file = fopen("/tmp/pokemon.csv","r");
+    //FILE* file = fopen("pokemon.csv","r");
 
     if(file == NULL){
         printf("Erro!");
@@ -53,6 +60,8 @@ void preencherPokedex(){
 
     while(fgets(linha, maxLinha, file) && i < 801){
 
+        char data[13];
+        substring(linha, data, 12);
         char* token1 = strtok(linha,"\"");
         char* primeiraParte = token1;
         char* token2 = strtok(NULL,"\"");
@@ -94,7 +103,7 @@ void preencherPokedex(){
         pokemons[i].isLegendary = (tok2 && atoi(tok2) != 0);
 
         tok2 = strtok(NULL,",");
-        pokemons[i].captureDate = strdup(tok2 ? tok2 : "");
+        pokemons[i].captureDate = strdup(data);
 
         i++;
     }
