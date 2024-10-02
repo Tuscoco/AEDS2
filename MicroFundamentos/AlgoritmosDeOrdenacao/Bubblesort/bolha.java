@@ -1,5 +1,3 @@
-import java.util.*;
-
 public class bolha {
     
     public static int comp = 0;
