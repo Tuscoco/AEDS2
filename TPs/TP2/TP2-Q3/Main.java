@@ -36,6 +36,13 @@ class Pokemon{
         captureDate = null;
 
     }
+
+    public Pokemon(int id, String name){
+
+        this.id = id;
+        this.name = name;
+
+    }
     
 	public Pokemon(int id, int generation, String name, String description, List<String> types ,List<String> abilities, double weight,
 	double height, int captureRate, boolean isLegendary, LocalDate captureDate){
@@ -197,6 +204,12 @@ class Pokemon{
         return new Pokemon(id, generation, name, description, types, abilities, weight, height, captureRate, isLegendary, captureDate);
 
     }
+
+    public Pokemon clone(){
+
+        return new Pokemon(id, name);
+
+    }
 	
 }
 
@@ -204,11 +217,13 @@ class Pokemon{
 
     static Pokemon[] pokemons = new Pokemon[801];
     static Pokemon[] array = new Pokemon[801];
+    static int comp = 0;
+    static int n = 0;
     
     public static void preencherPokedex(){
 
-        //String pokedex = "/tmp/pokemon.csv";
-        String pokedex = "../pokemon.csv";
+        String pokedex = "/tmp/pokemon.csv";
+        //String pokedex = "pokemon.csv";
 
         try{
 
@@ -216,37 +231,14 @@ class Pokemon{
 
             file.readLine();
 
-            int i = 0;
             String linha;
+            int i = 0;
+
             while((linha = file.readLine()) != null){
 
-                String[] dadospok = linha.split("\"");
-                String habilidades = dadospok[1];
-                String[] primeiraParte = dadospok[0].split(",", -1);
-                String[] segundaParte = dadospok[2].split(",", -1);
+                String[] dadospok = linha.split(",");
 
-                int id = Integer.parseInt(primeiraParte[0]);
-                int generation = Integer.parseInt(primeiraParte[1]);
-                String name = primeiraParte[2];
-                String description = primeiraParte[3];
-
-                List<String> types = new ArrayList<>();
-                types.add(primeiraParte[4]);
-                types.add(primeiraParte[5].isEmpty() ? null : primeiraParte[5]);
-
-                List<String> abilities = new ArrayList<>();
-                abilities.add(habilidades);
-
-                double weight = segundaParte[1].isEmpty() ? 0 : Double.parseDouble(segundaParte[1]);
-                double height = segundaParte[2].isEmpty() ? 0 : Double.parseDouble(segundaParte[2]);
-                int captureRate = segundaParte[3].isEmpty() ? 0 : Integer.parseInt(segundaParte[3]);
-                boolean isLegendary = segundaParte[4].charAt(0) == '0' ? false : true;
-                LocalDate captureDate = LocalDate.parse(segundaParte[5]);
-
-                Pokemon pokemon = new Pokemon(id, generation, name, description, types, abilities, weight, 
-                height, captureRate, isLegendary, captureDate);
-
-                pokemons[i] = pokemon;
+                pokemons[i] = new Pokemon(Integer.parseInt(dadospok[0]), dadospok[2]);
 
                 i++;
 
@@ -262,24 +254,42 @@ class Pokemon{
 
     }
 
-    public static void criarLog(long tempo, int comp){}
-
-    public static boolean pesquisaSequencial(String str){
+    public static boolean pesquisa(String str){
 
         boolean result = false;
 
-        for(int i = 0;i < array.length;i++){
+        for(int i = 0;i < n;i++){
 
-            if(array[i].getName().equals(str)){
+            if(array[i] != null){
 
-                result = true;
-                i = array.length;
+                comp++;
+                String nome = array[i].getName();
+                if(nome.equals(str)){
+    
+                    result = true;
+                    i = n;
+    
+                }
 
             }
 
         }
 
         return result;
+
+    }
+
+    public static void criarLog(long tempo, int comp){
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("matrícula_sequencial.txt"))){
+
+            writer.write("857867" + "\t" + tempo + "\t" + comp);
+
+        } catch (IOException e){
+
+            e.printStackTrace();
+
+        }
 
     }
 
@@ -300,21 +310,21 @@ class Pokemon{
     public static void main(String[] args) {
         
         Scanner scan = new Scanner(System.in);
+        long start = System.nanoTime();
+
+        preencherPokedex();
 
         String str = "";
-        int i = 0;
-        
+
         do{
 
             str = scan.nextLine();
 
             if(!isFim(str)){
 
-                int num = Integer.parseInt(str);
+                array[n] = pokemons[Integer.parseInt(str) - 1].clone();
 
-                array[i] = pokemons[num - 1].clonar();
-
-                i++;
+                n++;
 
             }
 
@@ -325,10 +335,8 @@ class Pokemon{
             str = scan.nextLine();
 
             if(!isFim(str)){
-                
-                boolean result = pesquisaSequencial(str);
 
-                if(result){
+                if(pesquisa(str)){
 
                     System.out.println("SIM");
 
@@ -341,6 +349,11 @@ class Pokemon{
             }
 
         }while(!isFim(str));
+
+        long end = System.nanoTime();
+        long tempo = end - start;
+
+        criarLog(tempo, comp);
 
         scan.close();
 
