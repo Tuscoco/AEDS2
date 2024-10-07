@@ -229,21 +229,21 @@ public class Main {
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 100 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
         inicio = System.nanoTime();
         quicksortFirstPivot(gerarArrayOrdenado(1000), 0, 999);
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 1000 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
         inicio = System.nanoTime();
         quicksortFirstPivot(gerarArrayOrdenado(10000), 0, 9999);
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 10000 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
 
         System.out.println();
@@ -255,21 +255,21 @@ public class Main {
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 100 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
         inicio = System.nanoTime();
         quicksortFirstPivot(gerarArrayQuaseOrdenado(1000), 0, 999);
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 1000 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
         inicio = System.nanoTime();
         quicksortFirstPivot(gerarArrayQuaseOrdenado(10000), 0, 9999);
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 10000 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
 
         System.out.println();
@@ -281,21 +281,21 @@ public class Main {
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 100 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
         inicio = System.nanoTime();
         quicksortFirstPivot(gerarArrayAleatorio(1000), 0, 999);
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 1000 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
         inicio = System.nanoTime();
         quicksortFirstPivot(gerarArrayAleatorio(10000), 0, 9999);
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 10000 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
         //////////////////////////////////////////////////////////////////////////////////////////////
         System.out.println();
@@ -310,21 +310,21 @@ public class Main {
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 100 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
         inicio = System.nanoTime();
         quicksortLastPivot(gerarArrayOrdenado(1000), 0, 999);
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 1000 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
         inicio = System.nanoTime();
         quicksortLastPivot(gerarArrayOrdenado(10000), 0, 9999);
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 10000 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
 
         System.out.println();
@@ -336,21 +336,21 @@ public class Main {
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 100 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
         inicio = System.nanoTime();
         quicksortLastPivot(gerarArrayQuaseOrdenado(1000), 0, 999);
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 1000 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
         inicio = System.nanoTime();
         quicksortLastPivot(gerarArrayQuaseOrdenado(10000), 0, 9999);
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 10000 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
 
         System.out.println();
@@ -362,21 +362,21 @@ public class Main {
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 100 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
         inicio = System.nanoTime();
         quicksortLastPivot(gerarArrayAleatorio(1000), 0, 999);
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 1000 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
         inicio = System.nanoTime();
         quicksortLastPivot(gerarArrayAleatorio(10000), 0, 9999);
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 10000 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
         //////////////////////////////////////////////////////////////////////////////////////////////
         System.out.println();
@@ -391,21 +391,21 @@ public class Main {
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 100 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
         inicio = System.nanoTime();
         quicksortRandomPivot(gerarArrayOrdenado(1000), 0, 999);
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 1000 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
         inicio = System.nanoTime();
         quicksortRandomPivot(gerarArrayOrdenado(10000), 0, 9999);
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 10000 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
 
         System.out.println();
@@ -417,21 +417,21 @@ public class Main {
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 100 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
         inicio = System.nanoTime();
         quicksortRandomPivot(gerarArrayQuaseOrdenado(1000), 0, 999);
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 1000 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
         inicio = System.nanoTime();
         quicksortRandomPivot(gerarArrayQuaseOrdenado(10000), 0, 9999);
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 10000 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
 
         System.out.println();
@@ -443,21 +443,21 @@ public class Main {
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 100 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
         inicio = System.nanoTime();
         quicksortRandomPivot(gerarArrayAleatorio(1000), 0, 999);
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 1000 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
         inicio = System.nanoTime();
         quicksortRandomPivot(gerarArrayAleatorio(10000), 0, 9999);
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 10000 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
         //////////////////////////////////////////////////////////////////////////////////////////////
         System.out.println();
@@ -472,21 +472,21 @@ public class Main {
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 100 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
         inicio = System.nanoTime();
         quicksortMedianOfThree(gerarArrayOrdenado(1000), 0, 999);
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 1000 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
         inicio = System.nanoTime();
         quicksortMedianOfThree(gerarArrayOrdenado(10000), 0, 9999);
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 10000 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
 
         System.out.println();
@@ -498,21 +498,21 @@ public class Main {
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 100 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
         inicio = System.nanoTime();
         quicksortMedianOfThree(gerarArrayQuaseOrdenado(1000), 0, 999);
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 1000 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
         inicio = System.nanoTime();
         quicksortMedianOfThree(gerarArrayQuaseOrdenado(10000), 0, 9999);
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 10000 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
 
         System.out.println();
@@ -524,21 +524,21 @@ public class Main {
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 100 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
         inicio = System.nanoTime();
         quicksortMedianOfThree(gerarArrayAleatorio(1000), 0, 999);
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 1000 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
         inicio = System.nanoTime();
         quicksortMedianOfThree(gerarArrayAleatorio(10000), 0, 9999);
         fim = System.nanoTime();
         tempo = fim - inicio;
         System.out.println("Array de 10000 elementos");
-        System.out.println("Tempo: " + tempo/1000000 + "ms");
+        System.out.println("Tempo: " + tempo + "ns");
 
     }
     

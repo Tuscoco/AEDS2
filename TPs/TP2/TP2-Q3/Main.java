@@ -283,7 +283,7 @@ class Pokemon{
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("matrícula_sequencial.txt"))){
 
-            writer.write("857867" + "\t" + tempo + "\t" + comp);
+            writer.write("857867" + "\t" + tempo + "ns\t" + comp);
 
         } catch (IOException e){
 
