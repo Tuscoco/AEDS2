@@ -217,8 +217,8 @@ public class Main {
     
     public static void preencherPokedex(){
 
-        //String pokedex = "/tmp/pokemon.csv";
-        String pokedex = "../pokemon.csv";
+        String pokedex = "/tmp/pokemon.csv";
+        //String pokedex = "../pokemon.csv";
 
         try{
 
@@ -281,9 +281,9 @@ public class Main {
     public static void construir(int tam){
 
         comp++;
-        for(int i = tam;i > 0 && array[i].getHeight() > array[i/2].getHeight();i/=2){
+        for(int i = tam;i > 0 && array[i].getHeight() > array[(i - 1)/2].getHeight();i = (i - 1)/2){
 
-            swap(i, i/2);
+            swap(i, (i - 1)/2);
 
         }
 
@@ -303,9 +303,30 @@ public class Main {
                 swap(i, filho);
                 i = filho;
 
+            }else if(array[i].getHeight() == array[filho].getHeight()){
+
+                desempatar(i, filho);
+                i = tam;
+
             }else{
 
+                comp++;
                 i = tam;
+
+            }
+
+        }
+
+    }
+
+    public static void desempatar(int i, int j){
+
+        if(array[i].getHeight() == array[j].getHeight()){
+
+            comp++;
+            if(array[i].getName().compareTo(array[j].getName()) > 0){
+
+                swap(i, j);
 
             }
 
@@ -332,7 +353,7 @@ public class Main {
         int filho;;
 
         comp++;
-        if(2 * (i + 2) >= tam || array[2 * i + 1].getHeight() > array[2 * i + 2].getHeight()){
+        if(2 * (i + 1) >= tam || array[2 * i + 1].getHeight() > array[2 * i + 2].getHeight()){
 
             filho = 2 * i + 1;
 
@@ -356,7 +377,7 @@ public class Main {
 
         }
 
-        int tam = n;
+        int tam = n - 1;
 
         while(tam > 0){
 
