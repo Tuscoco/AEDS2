@@ -217,8 +217,8 @@ public class Main {
     
     public static void preencherPokedex(){
 
-        String pokedex = "/tmp/pokemon.csv";
-        //String pokedex = "../pokemon.csv";
+        //String pokedex = "/tmp/pokemon.csv";
+        String pokedex = "../pokemon.csv";
 
         try{
 
@@ -276,11 +276,38 @@ public class Main {
 
     }
 
+    public static int getMaior(){
+
+        int maior = array[0].getCaptureRate();
+
+        for(int i = 1;i < n;i++){
+
+            if(array[i].getCaptureRate() > maior){
+
+                maior = array[i].getCaptureRate();
+
+            }
+
+        }
+
+        return maior;
+
+    }
+    
     public static void ordenar(){
 
         long inicio = System.nanoTime();
 
-        /////////////////////////////FAZER
+        int[] count = new int[getMaior() + 1];
+        Pokemon[] ordenado = new Pokemon[n];
+
+        for(int i = 0;i < count.length;count[i] = 0,i++);
+
+        for(int i = 0;i < n;count[array[i].getCaptureRate()]++,i++);
+
+        for(int i = 1;i < count.length;count[i] += count[i - 1],i++);
+
+        for(int i = n - 1;i >= 0;ordenado[count[array[i].getCaptureRate()] - 1] = array[i],count[array[i].getCaptureRate()]--,i--);
 
         long fim = System.nanoTime();
         tempo = (fim - inicio);

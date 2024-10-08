@@ -217,8 +217,8 @@ public class Main {
     
     public static void preencherPokedex(){
 
-        String pokedex = "/tmp/pokemon.csv";
-        //String pokedex = "../pokemon.csv";
+        //String pokedex = "/tmp/pokemon.csv";
+        String pokedex = "../pokemon.csv";
 
         try{
 
@@ -276,16 +276,101 @@ public class Main {
 
     }
 
+    ////////////////////HEAPSORT////////////////////
+
+    public static void construir(int tam){
+
+        comp++;
+        for(int i = tam;i > 0 && array[i].getHeight() > array[i/2].getHeight();i/=2){
+
+            swap(i, i/2);
+
+        }
+
+    }
+
+    public static void reconstruir(int tam){
+
+        int i = 0;
+
+        while(hasFilho(i, tam) == true){
+
+            int filho = getMaiorFilho(i, tam);
+
+            comp++;
+            if(array[i].getHeight() < array[filho].getHeight()){
+
+                swap(i, filho);
+                i = filho;
+
+            }else{
+
+                i = tam;
+
+            }
+
+        }
+
+    }
+
+    public static void swap(int i, int j){
+
+        Pokemon tmp = array[i];
+        array[i] = array[j];
+        array[j] = tmp;
+
+    }
+
+    public static boolean hasFilho(int i, int tam){
+
+        return (2 * i + 1 < tam);
+
+    }
+
+    public static int getMaiorFilho(int i, int tam){
+
+        int filho;;
+
+        comp++;
+        if(2 * (i + 2) >= tam || array[2 * i + 1].getHeight() > array[2 * i + 2].getHeight()){
+
+            filho = 2 * i + 1;
+
+        }else{
+
+            filho = 2 * i + 2;
+
+        }
+
+        return filho;
+
+    }
+
     public static void ordenar(){
 
         long inicio = System.nanoTime();
 
-        ///////////////////////////////////////FAZER
+        for(int tam = 1;tam < n;tam++){
+
+            construir(tam);
+
+        }
+
+        int tam = n;
+
+        while(tam > 0){
+
+            swap(0, tam--);
+            reconstruir(tam);
+
+        }
 
         long fim = System.nanoTime();
         tempo = (fim - inicio);
         
     }
+
+    ///////////////////////////////////////////////
 
     public static void criarLog(){
 
