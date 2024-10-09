@@ -35,8 +35,8 @@ void substring(const char *original, char *data, int length){
 
 void preencherPokedex(){
 
-    FILE* file = fopen("/tmp/pokemon.csv","r");
-    //FILE* file = fopen("../pokemon.csv","r");
+    //FILE* file = fopen("/tmp/pokemon.csv","r");
+    FILE* file = fopen("../pokemon.csv","r");
 
     if(file == NULL){
         printf("Erro!");
@@ -172,64 +172,54 @@ int n = 0;
 int comp = 0;
 double tempo;
 
-void swap(int j,int jj){
+void insercaoPorCor(int cor, int h){
 
-    pokemon temp = array[j];
-    array[j] = array[jj];
-    array[jj] = temp;
+    for(int i = (h + cor);i < n;i += h){
+
+        pokemon tmp = array[i];
+        int j = i - h;
+
+        comp++;
+        while((j >= 0) && (array[j].weight > tmp.weight || (array[j].weight == tmp.weight && strcmp(array[j].name, tmp.name) > 0))){
+
+            array[j + h] = array[j];
+            j -= h;
+
+        }
+
+        array[j + h] = tmp;
+
+    }
 
 }
 
-void ordenar(int esq, int dir){
+void ordenar(){
 
-    int i = esq;
-    int j = dir;
-    int pivo = array[(esq + dir)/2].generation;
-    char* pivoNome = array[(esq + dir)/2].name;
+    int h = 1;
 
-    while(i <= j){
+    do{
 
-        comp++;
-        while((array[i].generation < pivo) || (array[i].generation == pivo && strcmp(array[i].name, pivoNome) < 0)){
+        h = (h * 3) + 1;
 
-            i++;
+    }while(h < n);
 
-        }
+    do{
 
-        comp++;
-        while((array[j].generation > pivo) || (array[j].generation == pivo && strcmp(array[j].name, pivoNome) > 0)){
+        h /= 3;
 
-            j--;
+        for(int cor = 0;cor < h;cor++){
+
+            insercaoPorCor(cor, h);
 
         }
 
-        if(i <= j){
-
-            swap(i, j);
-            i++;
-            j--;
-
-        }
-
-    }
-
-    if(esq < j){
-
-        ordenar(esq, j);
-
-    }
-
-    if(i < dir){
-
-        ordenar(i, dir);
-
-    }
+    }while(h != 1);
 
 }
 
 void criarLog(){
 
-    FILE* file = fopen("matrícula_quicksort.txt","w");
+    FILE* file = fopen("matrícula_shellsort.txt","w");
 
     if(file == NULL){
 
@@ -270,7 +260,7 @@ int main(){
 
     inicio = clock();
 
-    ordenar(0, n - 1);
+    ordenar();
 
     fim = clock();
     tempo = (double)(fim - inicio) / CLOCKS_PER_SEC;
@@ -286,14 +276,6 @@ int main(){
 
     free(str);
     free(resultado);
-    for (int i = 0; i < 801; i++){
-        free(pokemons[i].name);
-        free(pokemons[i].description);
-        free(pokemons[i].type1);
-        free(pokemons[i].type2);
-        free(pokemons[i].abilities);
-        free(pokemons[i].captureDate);
-    }
 
     criarLog();
 

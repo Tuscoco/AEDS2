@@ -180,48 +180,29 @@ void swap(int j,int jj){
 
 }
 
-void ordenar(int esq, int dir){
+void ordenar(int low, int high){
 
-    int i = esq;
-    int j = dir;
-    int pivo = array[(esq + dir)/2].generation;
-    char* pivoNome = array[(esq + dir)/2].name;
+    int i, rh;
+    char* temp;
 
-    while(i <= j){
+    if(low < high){
 
-        comp++;
-        while((array[i].generation < pivo) || (array[i].generation == pivo && strcmp(array[i].name, pivoNome) < 0)){
+        rh = low;
 
-            i++;
+        for(i = low + 1;i <= high;i++){
 
-        }
+            comp++;
+            if(strcmp(array[i].name, array[rh].name) < 0){
 
-        comp++;
-        while((array[j].generation > pivo) || (array[j].generation == pivo && strcmp(array[j].name, pivoNome) > 0)){
+                rh = i;
 
-            j--;
+            }
 
         }
 
-        if(i <= j){
+        swap(low, rh);
 
-            swap(i, j);
-            i++;
-            j--;
-
-        }
-
-    }
-
-    if(esq < j){
-
-        ordenar(esq, j);
-
-    }
-
-    if(i < dir){
-
-        ordenar(i, dir);
+        ordenar(low + 1, high);
 
     }
 
@@ -229,7 +210,7 @@ void ordenar(int esq, int dir){
 
 void criarLog(){
 
-    FILE* file = fopen("matrícula_quicksort.txt","w");
+    FILE* file = fopen("matrícula_selecaoRecursiva","w");
 
     if(file == NULL){
 

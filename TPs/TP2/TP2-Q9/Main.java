@@ -213,12 +213,13 @@ public class Main {
     static int n = 0;
     static int comp = 0;
     static long tempo;
+    static double des = 1e-9;
     static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     
     public static void preencherPokedex(){
 
-        String pokedex = "/tmp/pokemon.csv";
-        //String pokedex = "../pokemon.csv";
+        //String pokedex = "/tmp/pokemon.csv";
+        String pokedex = "../pokemon.csv";
 
         try{
 

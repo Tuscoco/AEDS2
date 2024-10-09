@@ -158,7 +158,7 @@ class Pokemon{
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        return "[#" + id + " -> " + name + ": " + description + " - " + toStringTypes() + " - " + 
+        return "[#" + id + " -> " + name + ": " + description + " - " + toStringTypes(types) + " - " + 
         ToString(abilities) + " - " + weight + "kg - " + height + "m - " + captureRate + "% - " + isLegendary + " - " + 
         generation + " gen] - " + captureDate.format(dtf);
 
@@ -166,15 +166,15 @@ class Pokemon{
     public String ToString(List<String> lista){
         return String.join(",", lista);
     }
-    public String toStringTypes(){
+    public String toStringTypes(List<String> lista){
         
-        if(types.get(1) != null){
+        if(lista.get(1) != null){
 
-            return "['" + types.get(0) + "', '" + types.get(1) + "']";
+            return "['" + lista.get(0) + "', '" + lista.get(1) + "']";
 
         }else{
 
-            return "['" + types.get(0) + "']";
+            return "['" + lista.get(0) + "']";
 
         }
 
@@ -276,95 +276,43 @@ public class Main {
 
     }
 
-    public static void intercalar(int esq, int meio, int dir){
+    public static void swap(int menor, int i){
+        Pokemon tmp = array[menor];
+        array[menor] = array[i];
+        array[i] = tmp;
+    }
 
-        int nEsq = (meio + 1) - esq;
-        int nDir = dir - meio;
+    public static void ordenar(){
 
-        Pokemon[] arrayEsq = new Pokemon[nEsq];
-        Pokemon[] arrayDir = new Pokemon[nDir];
+        long inicio = System.nanoTime();
 
-        int iEsq, iDir, i;
+        for(int i = 0;i < 10;i++){
 
-        for(iEsq = 0;iEsq < nEsq;iEsq++){
+            int menor = i;
 
-            arrayEsq[iEsq] = array[esq + iEsq];
-
-        }
-
-        for(iDir = 0;iDir < nDir;iDir++){
-
-            arrayDir[iDir] = array[(meio + 1) + iDir];
-
-        }
-
-        iEsq = iDir = 0;
-        i = esq;
-
-        comp++;
-        while(iEsq < nEsq && iDir < nDir){
-
-            comp++;
-            if(arrayEsq[iEsq].toStringTypes().compareTo(arrayDir[iDir].toStringTypes()) < 0){
-
-                array[i++] = arrayEsq[iEsq++];
-
-            }else if(arrayEsq[iEsq].toStringTypes().compareTo(arrayDir[iDir].toStringTypes()) > 0){
+            for(int j = (i + 1);j < n;j++){
 
                 comp++;
+                if(array[menor].getName().compareTo(array[j].getName()) > 0){
 
-                array[i++] = arrayDir[iDir++];
-
-            }else{
-
-                comp++;
-
-                comp++;
-                if(arrayEsq[iEsq].getName().compareTo(arrayDir[iDir].getName()) <= 0){
-
-                    array[i++] = arrayEsq[iEsq++];
-
-                }else{
-
-                    array[i++] = arrayDir[iDir++];
+                    menor = j;
 
                 }
 
             }
 
-        }
-
-        while(iEsq < nEsq){
-
-            array[i++] = arrayEsq[iEsq++];
+            swap(menor, i);
 
         }
 
-        while(iDir < nDir){
-
-            array[i++] = arrayDir[iDir++];
-
-        }
-
-    }
-
-    public static void ordenar(int esq, int dir){
-
-        if(esq < dir){
-
-            int meio = (esq + dir)/2;
-
-            ordenar(esq, meio);
-            ordenar(meio + 1, dir);
-            intercalar(esq, meio, dir);
-
-        }
+        long fim = System.nanoTime();
+        tempo = (fim - inicio);
         
     }
 
     public static void criarLog(){
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("matrícula_mergesort.txt"))){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("matrícula_selecao.txt"))){
 
             writer.write("857867" + "\t" + tempo + "ns\t" + comp);
 
@@ -409,14 +357,9 @@ public class Main {
 
         }while(!isFim(str));
 
-        long inicio = System.nanoTime();
+        ordenar();
 
-        ordenar(0, n - 1);
-
-        long fim = System.nanoTime();
-        tempo = (fim - inicio);
-
-        for(int i = 0;i < n;i++){
+        for(int i = 0;i < 10;i++){
 
             System.out.println(array[i].toString());
 
