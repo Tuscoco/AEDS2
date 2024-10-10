@@ -28,7 +28,7 @@ typedef struct pokemon
     double height;
     int captureRate;
     bool isLegendary;
-    char* captureDate;
+    struct tm captureDate;
 
 }pokemon;
 
@@ -43,8 +43,8 @@ void substring(const char *original, char *data, int length){
 
 void preencherPokedex(){
 
-    FILE* file = fopen("/tmp/pokemon.csv","r");
-    //FILE* file = fopen("pokemon.csv","r");
+    //FILE* file = fopen("/tmp/pokemon.csv","r");
+    FILE* file = fopen("pokemon.csv","r");
 
     if(file == NULL){
         printf("Erro!");
@@ -103,7 +103,7 @@ void preencherPokedex(){
         pokemons[i].isLegendary = (tok2 && atoi(tok2) != 0);
 
         tok2 = strtok(NULL,",");
-        pokemons[i].captureDate = strdup(data);
+        strptime(data, "%d/%m/%Y", &pokemons[i].captureDate);
 
         i++;
     }
@@ -149,10 +149,12 @@ char* toString(int n){
     char* resultado = (char*) malloc(maxLinha * sizeof(char));
     char* tipos = tratarTipos(n);
     char* lendario = tratarLendario(n);
+    char buffer[20];
+    strftime(buffer, sizeof(buffer), "%d/%m/%Y", &pokemons[n - 1].captureDate);
 
     sprintf(resultado,"[#%d -> %s: %s - %s - %s - %.1lfkg - %.1lfm - %d%% - %s - %d gen] - %s",pokemons[n - 1].id,
     pokemons[n - 1].name,pokemons[n - 1].description,tipos,pokemons[n - 1].abilities,pokemons[n - 1].weight,
-    pokemons[n - 1].height,pokemons[n - 1].captureRate,lendario,pokemons[n - 1].generation,pokemons[n - 1].captureDate);
+    pokemons[n - 1].height,pokemons[n - 1].captureRate,lendario,pokemons[n - 1].generation,buffer);
 
     return resultado;
 
@@ -196,7 +198,7 @@ int main()
 
                     char* resultado = toString(n);
 
-                    printf("%s",resultado);
+                    printf("%s\n",resultado);
                     i = 801;
 
                 }
@@ -213,7 +215,6 @@ int main()
         free(pokemons[i].type1);
         free(pokemons[i].type2);
         free(pokemons[i].abilities);
-        free(pokemons[i].captureDate);
     }
 
     return 0;

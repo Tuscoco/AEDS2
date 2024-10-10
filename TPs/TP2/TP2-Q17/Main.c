@@ -20,7 +20,7 @@ typedef struct pokemon
     double height;
     int captureRate;
     bool isLegendary;
-    struct tm captureDate;
+    char* captureDate;
 
 }pokemon;
 
@@ -35,8 +35,8 @@ void substring(const char *original, char *data, int length){
 
 void preencherPokedex(){
 
-    //FILE* file = fopen("/tmp/pokemon.csv","r");
-    FILE* file = fopen("../pokemon.csv","r");
+    FILE* file = fopen("/tmp/pokemon.csv","r");
+    //FILE* file = fopen("../pokemon.csv","r");
 
     if(file == NULL){
         printf("Erro!");
@@ -95,7 +95,7 @@ void preencherPokedex(){
         pokemons[i].isLegendary = (tok2 && atoi(tok2) != 0);
 
         tok2 = strtok(NULL,",");
-        strptime(data, "%d/%m/%Y", &pokemons[i].captureDate);
+        pokemons[i].captureDate = strdup(data);
 
         i++;
     }
@@ -141,12 +141,10 @@ char* toString(pokemon* vetor,int i){
     char* resultado = (char*) malloc(maxLinha * sizeof(char));
     char* tipos = tratarTipos(vetor, i);
     char* lendario = tratarLendario(vetor, i);
-    char buffer[20];
-    strftime(buffer, sizeof(buffer), "%d/%m/%Y", &vetor[i].captureDate);
 
     sprintf(resultado,"[#%d -> %s: %s - %s - %s - %.1lfkg - %.1lfm - %d%% - %s - %d gen] - %s",vetor[i].id,
     vetor[i].name,vetor[i].description,tipos,vetor[i].abilities,vetor[i].weight,
-    vetor[i].height,vetor[i].captureRate,lendario,vetor[i].generation,buffer);
+    vetor[i].height,vetor[i].captureRate,lendario,vetor[i].generation,vetor[i].captureDate);
 
     return resultado;
 
@@ -156,7 +154,7 @@ bool isFim(char* str){
 
     bool resp = false;
     
-    if(strcmp(str,"FIM")){
+    if(strcmp(str,"FIM") == 0){
 
         resp = true;
 
@@ -174,29 +172,133 @@ int n = 0;
 int comp = 0;
 double tempo;
 
-void ordenar(){
+//////////////////////////////HEAPSORT//////////////////////////////
 
-    for(int i = 1;i < n;i++){
+void swap(int j,int jj){
 
-        pokemon tmp = array[i];
-        int j = (i < 10) ? i - 1 : 9;
+    pokemon temp = array[j];
+    array[j] = array[jj];
+    array[jj] = temp;
 
-        while((j >= 0) && (difftime(mktime(&array[j].captureDate),mktime(&tmp.captureDate)) > 0 )){
+}
 
-            array[j + 1] = array[j];
-            j--;
+void desempatar(int i, int j){
+
+    if(array[i].height == array[j].height){
+
+        comp++;
+        if(strcmp(array[i].name, array[j].name) > 0){
+
+            swap(i, j);
 
         }
 
-        array[j + 1] = tmp;
+    }
+
+
+}
+
+bool hasFilho(int i, int tam){
+
+    return (2 * i + 1 < tam);
+
+}
+
+int getMaiorFilho(int i, int tam){
+
+    int filho;;
+
+    comp++;
+    if(2 * (i + 1) >= tam || array[2 * i + 1].height > array[2 * i + 2].height){
+
+        filho = 2 * i + 1;
+
+    }else{
+
+        filho = 2 * i + 2;
+
+    }
+
+    return filho;
+
+}
+
+void construir(int tam){
+
+    comp++;
+    for(int i = tam;i > 0 && array[i].height > array[(i - 1)/2].height;i = (i - 1)/2){
+
+        swap(i, (i - 1)/2);
 
     }
 
 }
 
+void reconstruir(int k){
+
+        int i = 0;
+
+        while(hasFilho(i, k) == true){
+
+            int filho = getMaiorFilho(i, k);
+
+            comp++;
+            if(array[i].height < array[filho].height){
+
+                swap(i, filho);
+                i = filho;
+
+            }else if(array[i].height == array[filho].height){
+
+                desempatar(i, filho);
+                i = k;
+
+            }else{
+
+                comp++;
+                i = k;
+
+            }
+
+        }
+
+}
+
+void ordenar(){
+
+    for(int tam = 2;tam <= 10;tam++){
+
+        construir(tam);
+
+    }
+
+    for(int i = 10 + 1;i <= n;i++){
+
+        if(array[i].height < array[1].height){
+
+            swap(i, 1);
+            reconstruir(10);
+
+        }
+
+    }
+
+    int tam = 10;
+
+    while(tam > 1){
+
+        swap(1, tam--);
+        reconstruir(tam);
+
+    }
+
+}
+
+////////////////////////////////////////////////////////////////////
+
 void criarLog(){
 
-    FILE* file = fopen("matrícula_insercao","w");
+    FILE* file = fopen("matrícula_bolha.txt","w");
 
     if(file == NULL){
 
@@ -247,7 +349,7 @@ int main(){
     for(int i = 0;i < 10;i++){
 
         resultado = toString(array, i);
-        printf("%s\n", resultado);
+        printf("%s", resultado);
 
     }
 
@@ -259,6 +361,7 @@ int main(){
         free(pokemons[i].type1);
         free(pokemons[i].type2);
         free(pokemons[i].abilities);
+        free(pokemons[i].captureDate);
     }
 
     criarLog();
