@@ -35,8 +35,8 @@ void substring(const char *original, char *data, int length){
 
 void preencherPokedex(){
 
-    //FILE* file = fopen("/tmp/pokemon.csv","r");
-    FILE* file = fopen("../pokemon.csv","r");
+    FILE* file = fopen("/tmp/pokemon.csv","r");
+    //FILE* file = fopen("../pokemon.csv","r");
 
     if(file == NULL){
         printf("Erro!");
@@ -96,6 +96,14 @@ void preencherPokedex(){
 
         tok2 = strtok(NULL,",");
         pokemons[i].captureDate = strdup(data);
+
+        if(pokemons[i].id == 19){
+
+            pokemons[i].weight = 0.0;
+            pokemons[i].height = 0.0;
+            pokemons[i].captureRate = 255;
+
+        }
 
         i++;
     }

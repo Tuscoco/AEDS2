@@ -97,6 +97,14 @@ void preencherPokedex(){
         tok2 = strtok(NULL,",");
         pokemons[i].captureDate = strdup(data);
 
+        if(pokemons[i].id == 19){
+
+            pokemons[i].weight = 0.0;
+            pokemons[i].height = 0.0;
+            pokemons[i].captureRate = 255;
+
+        }
+
         i++;
     }
 

@@ -97,6 +97,14 @@ void preencherPokedex(){
         tok2 = strtok(NULL,",");
         pokemons[i].captureDate = strdup(data);
 
+        if(pokemons[i].id == 19){
+
+            pokemons[i].weight = 0.0;
+            pokemons[i].height = 0.0;
+            pokemons[i].captureRate = 255;
+
+        }
+
         i++;
     }
 
@@ -184,7 +192,7 @@ void swap(int j,int jj){
 
 void desempatar(int i, int j){
 
-    if(array[i].height == array[j].height){
+    if (array[i].height == array[j].height){
 
         comp++;
         if(strcmp(array[i].name, array[j].name) > 0){
@@ -194,101 +202,83 @@ void desempatar(int i, int j){
         }
 
     }
-
-
+    
 }
 
 bool hasFilho(int i, int tam){
-
     return (2 * i + 1 < tam);
-
 }
 
 int getMaiorFilho(int i, int tam){
+    int filhoEsq = 2 * i + 1;
+    int filhoDir = 2 * i + 2;
+    
+    if(filhoDir >= tam){
 
-    int filho;;
+        return filhoEsq;
 
+    }
+    
     comp++;
-    if(2 * (i + 1) >= tam || array[2 * i + 1].height > array[2 * i + 2].height){
+    if(array[filhoEsq].height > array[filhoDir].height){
 
-        filho = 2 * i + 1;
+        return filhoEsq;
+
+    }else if(array[filhoEsq].height < array[filhoDir].height){
+
+        return filhoDir;
 
     }else{
 
-        filho = 2 * i + 2;
+        return (strcmp(array[filhoEsq].name, array[filhoDir].name) < 0) ? filhoEsq : filhoDir;
 
     }
-
-    return filho;
-
 }
 
 void construir(int tam){
 
-    comp++;
-    for(int i = tam;i > 0 && array[i].height > array[(i - 1)/2].height;i = (i - 1)/2){
+    for(int i = (tam - 1) / 2; i >= 0; i--){
 
-        swap(i, (i - 1)/2);
+        reconstruir(tam, i);
 
     }
 
 }
 
-void reconstruir(int k){
+void reconstruir(int tam, int i){
 
-        int i = 0;
+    while (hasFilho(i, tam)){
 
-        while(hasFilho(i, k) == true){
+        int maiorFilho = getMaiorFilho(i, tam);
+        
+        comp++;
+        if(array[i].height < array[maiorFilho].height){
 
-            int filho = getMaiorFilho(i, k);
+            swap(i, maiorFilho);
+            i = maiorFilho;
+            
+        }else if(array[i].height == array[maiorFilho].height){
 
-            comp++;
-            if(array[i].height < array[filho].height){
+            desempatar(i, maiorFilho);
+            i = maiorFilho;
+            
+        }else{
 
-                swap(i, filho);
-                i = filho;
-
-            }else if(array[i].height == array[filho].height){
-
-                desempatar(i, filho);
-                i = k;
-
-            }else{
-
-                comp++;
-                i = k;
-
-            }
-
+            break;
+            
         }
-
+    }
 }
 
 void ordenar(){
 
-    for(int tam = 2;tam <= 10;tam++){
+    construir(n);
 
-        construir(tam);
 
-    }
+    for(int tam = n - 1; tam > 0; tam--){
 
-    for(int i = 10 + 1;i <= n;i++){
-
-        if(array[i].height < array[1].height){
-
-            swap(i, 1);
-            reconstruir(10);
-
-        }
-
-    }
-
-    int tam = 10;
-
-    while(tam > 1){
-
-        swap(1, tam--);
-        reconstruir(tam);
+        swap(0, tam);       
+        reconstruir(tam, 0); 
 
     }
 
@@ -298,7 +288,7 @@ void ordenar(){
 
 void criarLog(){
 
-    FILE* file = fopen("matrícula_bolha.txt","w");
+    FILE* file = fopen("matrícula_heapsort.txt","w");
 
     if(file == NULL){
 

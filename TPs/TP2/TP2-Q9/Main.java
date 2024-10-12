@@ -213,13 +213,12 @@ public class Main {
     static int n = 0;
     static int comp = 0;
     static long tempo;
-    static double des = 1e-9;
     static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     
     public static void preencherPokedex(){
 
-        //String pokedex = "/tmp/pokemon.csv";
-        String pokedex = "../pokemon.csv";
+        String pokedex = "/tmp/pokemon.csv";
+        //String pokedex = "../pokemon.csv";
 
         try{
 
@@ -307,7 +306,7 @@ public class Main {
             }else if(array[i].getHeight() == array[filho].getHeight()){
 
                 desempatar(i, filho);
-                i = tam;
+                i = filho;
 
             }else{
 
@@ -322,14 +321,10 @@ public class Main {
 
     public static void desempatar(int i, int j){
 
-        if(array[i].getHeight() == array[j].getHeight()){
+        comp++;
+        if(array[i].getName().compareTo(array[j].getName()) > 0){
 
-            comp++;
-            if(array[i].getName().compareTo(array[j].getName()) > 0){
-
-                swap(i, j);
-
-            }
+            swap(i, j);
 
         }
 

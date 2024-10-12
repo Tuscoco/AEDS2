@@ -97,6 +97,14 @@ void preencherPokedex(){
         tok2 = strtok(NULL,",");
         pokemons[i].captureDate = strdup(data);
 
+        if(pokemons[i].id == 19){
+
+            pokemons[i].weight = 0.0;
+            pokemons[i].height = 0.0;
+            pokemons[i].captureRate = 255;
+
+        }
+
         i++;
     }
 
@@ -172,7 +180,89 @@ int n = 0;
 int comp = 0;
 double tempo;
 
+void countingSort(pokemon arr[], int n, int pos){
+
+    pokemon output[n];
+    int count[256] = {0};
+
+
+    for (int i = 0; i < n; i++){
+
+        comp++;
+        int charIdx = (pos < strlen(arr[i].abilities)) ? arr[i].abilities[pos] : 0;
+        count[charIdx]++;
+
+    }
+
+    for (int i = 1; i < 256; i++){
+
+        count[i] += count[i - 1];
+
+    }
+
+    for (int i = n - 1; i >= 0; i--){
+
+        comp++;
+        int charIdx = (pos < strlen(arr[i].abilities)) ? arr[i].abilities[pos] : 0;
+        output[count[charIdx] - 1] = arr[i];
+        count[charIdx]--;
+
+    }
+
+    for (int i = 0; i < n - 1; i++){
+
+        comp++;
+        if (strcmp(output[i].abilities, output[i + 1].abilities) == 0){
+
+            comp++;
+            if (strcmp(output[i].name, output[i + 1].name) > 0){
+
+                pokemon temp = output[i];
+                output[i] = output[i + 1];
+                output[i + 1] = temp;
+
+            }
+
+        }
+
+    }
+
+    for (int i = 0; i < n; i++){
+
+        arr[i] = output[i];
+
+    }
+}
+
+int getMaxAbilitiesLength(pokemon arr[], int n){
+
+    int maxLen = strlen(arr[0].abilities);
+
+    for (int i = 1; i < n; i++){
+
+        comp++;
+        if (strlen(arr[i].abilities) > maxLen){
+
+            maxLen = strlen(arr[i].abilities);
+
+        }
+
+    }
+
+    return maxLen;
+
+}
+
 void ordenar(){
+
+    int maxLen = getMaxAbilitiesLength(array, n);
+
+    for (int pos = maxLen - 1; pos >= 0; pos--){
+
+        countingSort(array, n, pos);
+
+    }
+
 }
 
 void criarLog(){

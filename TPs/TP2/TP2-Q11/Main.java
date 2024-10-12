@@ -217,8 +217,8 @@ public class Main {
     
     public static void preencherPokedex(){
 
-        //String pokedex = "/tmp/pokemon.csv";
-        String pokedex = "../pokemon.csv";
+        String pokedex = "/tmp/pokemon.csv";
+        //String pokedex = "../pokemon.csv";
 
         try{
 
@@ -282,6 +282,7 @@ public class Main {
 
         for(int i = 1;i < n;i++){
 
+            comp++;
             if(array[i].getCaptureRate() > maior){
 
                 maior = array[i].getCaptureRate();
@@ -307,7 +308,34 @@ public class Main {
 
         for(int i = 1;i < count.length;count[i] += count[i - 1],i++);
 
-        for(int i = n - 1;i >= 0;ordenado[count[array[i].getCaptureRate()] - 1] = array[i],count[array[i].getCaptureRate()]--,i--);
+        for(int i = n - 1;i >= 0;i--){
+
+            Pokemon pok = array[i];
+            int pos = count[pok.getCaptureRate()] - 1;
+
+            comp++;
+            while(pos >= 0 && ordenado[pos] != null && ordenado[pos].getCaptureRate() == pok.getCaptureRate() && ordenado[pos].getName().compareTo(pok.getName()) > 0){
+
+                ordenado[pos + 1] = ordenado[pos];
+                pos--;
+
+            }
+
+            if(pos < 0){
+
+                pos = 0;
+
+            }
+            
+            ordenado[pos] = pok;
+            count[pok.getCaptureRate()]--;
+        }
+
+        for(int i = 0;i < n;i++){
+
+            array[i] = ordenado[i];
+
+        }
 
         long fim = System.nanoTime();
         tempo = (fim - inicio);

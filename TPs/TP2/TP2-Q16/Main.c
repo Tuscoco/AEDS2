@@ -20,7 +20,7 @@ typedef struct pokemon
     double height;
     int captureRate;
     bool isLegendary;
-    struct tm captureDate;
+    char* captureDate;
 
 }pokemon;
 
@@ -35,8 +35,8 @@ void substring(const char *original, char *data, int length){
 
 void preencherPokedex(){
 
-    //FILE* file = fopen("/tmp/pokemon.csv","r");
-    FILE* file = fopen("../pokemon.csv","r");
+    FILE* file = fopen("/tmp/pokemon.csv","r");
+    //FILE* file = fopen("../pokemon.csv","r");
 
     if(file == NULL){
         printf("Erro!");
@@ -95,7 +95,15 @@ void preencherPokedex(){
         pokemons[i].isLegendary = (tok2 && atoi(tok2) != 0);
 
         tok2 = strtok(NULL,",");
-        strptime(data, "%d/%m/%Y", &pokemons[i].captureDate);
+        pokemons[i].captureDate = strdup(data);
+
+        if(pokemons[i].id == 19){
+
+            pokemons[i].weight = 0.0;
+            pokemons[i].height = 0.0;
+            pokemons[i].captureRate = 255;
+
+        }
 
         i++;
     }
@@ -141,12 +149,10 @@ char* toString(pokemon* vetor,int i){
     char* resultado = (char*) malloc(maxLinha * sizeof(char));
     char* tipos = tratarTipos(vetor, i);
     char* lendario = tratarLendario(vetor, i);
-    char buffer[20];
-    strftime(buffer, sizeof(buffer), "%d/%m/%Y", &vetor[i].captureDate);
 
     sprintf(resultado,"[#%d -> %s: %s - %s - %s - %.1lfkg - %.1lfm - %d%% - %s - %d gen] - %s",vetor[i].id,
     vetor[i].name,vetor[i].description,tipos,vetor[i].abilities,vetor[i].weight,
-    vetor[i].height,vetor[i].captureRate,lendario,vetor[i].generation,buffer);
+    vetor[i].height,vetor[i].captureRate,lendario,vetor[i].generation,vetor[i].captureDate);
 
     return resultado;
 
@@ -156,7 +162,7 @@ bool isFim(char* str){
 
     bool resp = false;
     
-    if(strcmp(str,"FIM")){
+    if(strcmp(str,"FIM") == 0){
 
         resp = true;
 
@@ -174,14 +180,33 @@ int n = 0;
 int comp = 0;
 double tempo;
 
+void parseDate(const char* dateStr, struct tm* date){
+
+    strptime(dateStr, "%Y-%m-%d", date);
+    
+}
+
+int compararDatas(const char* date1, const char* date2){
+
+    struct tm tm1 = {0}, tm2 = {0};
+    parseDate(date1, &tm1);
+    parseDate(date2, &tm2);
+
+    time_t time1 = mktime(&tm1);
+    time_t time2 = mktime(&tm2);
+
+    return difftime(time1, time2);
+
+}
+
 void ordenar(){
 
-    for(int i = 1;i < n;i++){
+    for(int i = 1; i < n; i++){
 
         pokemon tmp = array[i];
-        int j = (i < 10) ? i - 1 : 9;
+        int j = i - 1;
 
-        while((j >= 0) && (difftime(mktime(&array[j].captureDate),mktime(&tmp.captureDate)) > 0 )){
+        while(j >= 0 && compararDatas(array[j].captureDate, tmp.captureDate) > 0){
 
             array[j + 1] = array[j];
             j--;
@@ -253,13 +278,6 @@ int main(){
 
     free(str);
     free(resultado);
-    for (int i = 0; i < 801; i++){
-        free(pokemons[i].name);
-        free(pokemons[i].description);
-        free(pokemons[i].type1);
-        free(pokemons[i].type2);
-        free(pokemons[i].abilities);
-    }
 
     criarLog();
 
