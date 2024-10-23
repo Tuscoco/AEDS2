@@ -5,7 +5,7 @@
 public class Celula {
 
     int elemento;
-    Celula prox;
+    CelulaM prox;
 
     public Celula(){
 

@@ -4,7 +4,7 @@
 
 public class Pilha {
 
-    private Celula topo;
+    private CelulaM topo;
 
     public Pilha(){
 
@@ -14,7 +14,7 @@ public class Pilha {
 
     public void inserir(int x){
 
-        Celula tmp = new Celula(x);
+        CelulaM tmp = new CelulaM(x);
         tmp.prox = topo;
         topo = tmp;
         tmp = null;
@@ -30,7 +30,7 @@ public class Pilha {
         }
 
         int elemento = topo.elemento;
-        Celula tmp = topo;
+        CelulaM tmp = topo;
         topo = topo.prox;
         tmp.prox = null;
         tmp = null;
@@ -43,7 +43,7 @@ public class Pilha {
 
         System.out.print("[ ");
 
-        for(Celula i = topo;i != null;i = i.prox){
+        for(CelulaM i = topo;i != null;i = i.prox){
 
             System.out.print(i.elemento + " ");
 
