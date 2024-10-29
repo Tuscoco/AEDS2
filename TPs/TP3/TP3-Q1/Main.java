@@ -447,7 +447,7 @@ public class Main {
 
             }else if(op[0].equals("IF")){
 
-                lista.inserirInicio(pokemons[Integer.parseInt(op[1]) - 1].clonar());
+                lista.inserirFim(pokemons[Integer.parseInt(op[1]) - 1].clonar());
 
             }else if(op[0].equals("I*")){
 
