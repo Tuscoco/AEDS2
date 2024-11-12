@@ -43,41 +43,36 @@ public class Main {
     public static void main(String[] args) {
         
         Scanner scan = new Scanner(System.in);
-        List<Pessoa> lista = new ArrayList<>();
 
-        int q = scan.nextInt();
-        scan.nextLine();
-        
-        String str = "";
+        while(scan.hasNext()){
 
-        do{
+            List<Pessoa> lista = new ArrayList<>();
+            String str = "";
+            int q = scan.nextInt();
+            scan.nextLine();
 
-            str = scan.nextLine();
+            for(int i = 0;i < q;i++){
 
-            if(!str.isEmpty()){
+                str = scan.nextLine();
 
                 String[] array = str.split(" ");
-
+    
                 if(array.length == 3){
-
+    
                     Pessoa pessoa = new Pessoa(array[0], array[1].charAt(0), Integer.parseInt(array[2]));
                     lista.add(pessoa);
-
-                }else{
-
-                    break;
-
+    
                 }
 
             }
 
-        }while(!str.isEmpty());
+            lista = ordenar(lista);
 
-        lista = ordenar(lista);
-
-        for(int i = 0;i < lista.size();i++){
-
-            System.out.println(lista.get(i).nome);
+            for(int i = 0;i < lista.size();i++){
+    
+                System.out.println(lista.get(i).nome);
+    
+            }
 
         }
 
