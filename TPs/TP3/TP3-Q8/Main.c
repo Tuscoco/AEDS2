@@ -391,14 +391,18 @@ void ordenar(CelulaDupla *esq, CelulaDupla *dir, int es, int di){
 
     while(ii <= jj){
 
-        while(i != NULL && strcmp(i->elemento.name, pivot->elemento.name) < 0){
+        while(i != NULL && (i->elemento.generation <  pivot->elemento.generation || 
+        (i->elemento.generation == pivot->elemento.generation && 
+        strcmp(i->elemento.name, pivot->elemento.name) < 0))){
 
             i = i->prox;
             ii++;
 
         }
 
-        while(j != NULL && strcmp(j->elemento.name, pivot->elemento.name) > 0){
+        while(j != NULL && (j->elemento.generation >  pivot->elemento.generation || 
+        (j->elemento.generation == pivot->elemento.generation && 
+        strcmp(j->elemento.name, pivot->elemento.name) > 0))){
 
             j = j->ant;
             jj--;

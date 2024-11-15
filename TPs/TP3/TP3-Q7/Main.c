@@ -232,13 +232,13 @@ void media(){
 
     Celula *i = primeiro;
     int quant = 0;
-    int m = 0;
+    float total = 0;
 
     for(int j = 0;j < 6;j++){
 
         if(strcmp(i->elemento.name, "Removido") != 0){
 
-            m += i->elemento.captureRate;
+            total += i->elemento.captureRate;
             quant++;
             i = i->prox;
 
@@ -246,9 +246,11 @@ void media(){
 
     }
 
+    float med = total/cont;
+
     if(quant > 0){
 
-        printf("Média: %.0lf\n", ceil(m/quant));
+        printf("Média: %d\n", (int) roundf(med));
 
     }
 
@@ -258,6 +260,7 @@ void inserir(pokemon pok){
 
     ultimo->elemento = pok;
     ultimo = ultimo->prox;
+    cont++;
 
     media();
 
@@ -268,6 +271,7 @@ pokemon remover(){
     pokemon elemento = primeiro->elemento;
     primeiro->elemento.name = "Removido";
     primeiro = primeiro->prox;
+    cont--;
 
     return elemento;
 

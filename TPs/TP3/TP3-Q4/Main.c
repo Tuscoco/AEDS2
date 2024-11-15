@@ -192,17 +192,19 @@ void media(){
 
     int i = primeiro;
     int cont = 0;
-    int m = 0;
+    float total = 0;
 
     while(i != ultimo){
 
-        m += array[i].captureRate;
+        total += array[i].captureRate;
         cont++;
         i = (i + 1) % MAXTAM;
 
     }
 
-    printf("Média: %.0lf\n", ceil(m/cont));
+    float media = total / cont;
+
+    printf("Média: %d\n", (int) roundf(media));
 
 }
 

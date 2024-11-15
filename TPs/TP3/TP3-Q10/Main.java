@@ -378,22 +378,6 @@ class ListaDupla{
 
     }
 
-    public CelulaDupla acharPivot(CelulaDupla esq, CelulaDupla dir){
-
-        CelulaDupla i = esq;
-        CelulaDupla j = dir;
-
-        while(i != j && i != j.ant){
-
-            i = i.prox;
-            j = j.ant;
-
-        }
-
-        return i;
-
-    }
-
     public void swap(CelulaDupla i, CelulaDupla j){
 
         Pokemon tmp = i.elemento;
@@ -414,12 +398,14 @@ class ListaDupla{
         int ii = es;
         CelulaDupla j = dir;
         int jj = di;
-        CelulaDupla pivot = acharPivot(esq, dir);
+        CelulaDupla pivot = dir;
 
         while(ii <= jj){
 
             comp++;
-            while(i != null && i.elemento.getName().compareTo(pivot.elemento.getName()) < 0){
+            while(i != null && (i.elemento.getGeneration() < pivot.elemento.getGeneration() || 
+            (i.elemento.getGeneration() == pivot.elemento.getGeneration() && 
+            i.elemento.getName().compareTo(pivot.elemento.getName()) < 0))){
 
                 i = i.prox;
                 ii++;
@@ -427,7 +413,9 @@ class ListaDupla{
             }
 
             comp++;
-            while(j != null && j.elemento.getName().compareTo(pivot.elemento.getName()) > 0){
+            while(j != null && (j.elemento.getGeneration() > pivot.elemento.getGeneration() || 
+            (j.elemento.getGeneration() == pivot.elemento.getGeneration() && 
+            j.elemento.getName().compareTo(pivot.elemento.getName()) > 0))){
 
                 j = j.ant;
                 jj--;
