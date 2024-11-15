@@ -37,8 +37,8 @@ void substring(const char *original, char *data, int length){
 
 void preencherPokedex(){
 
-    //FILE* file = fopen("/tmp/pokemon.csv","r");
-    FILE* file = fopen("../pokemon.csv","r");
+    FILE* file = fopen("/tmp/pokemon.csv","r");
+    //FILE* file = fopen("../pokemon.csv","r");
 
     if(file == NULL){
         printf("Erro!");
@@ -240,16 +240,16 @@ void media(){
 
             total += i->elemento.captureRate;
             quant++;
-            i = i->prox;
 
         }
 
-    }
+        i = i->prox;
 
-    float med = total/cont;
+    }
 
     if(quant > 0){
 
+        float med = total/quant;
         printf("Média: %d\n", (int) roundf(med));
 
     }
@@ -281,8 +281,7 @@ void mostrar(Celula *i){
 
     for(int j = 0;j < 5;j++){
 
-        printf("[%d] %s", cont, toString(i->elemento));
-        cont++;
+        printf("[%d] %s", j, toString(i->elemento));
         i = i->prox;
 
 

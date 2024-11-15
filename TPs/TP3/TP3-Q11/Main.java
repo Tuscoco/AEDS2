@@ -151,37 +151,52 @@ class Matriz {
 
     public Matriz multiplicacao(Matriz matriz){
 
-        CelulaM auxL1, auxC1;
-        CelulaM auxL2, auxC2;
+        if(this.coluna != matriz.linha){
 
-        auxL1 = auxC1 = this.inicio;
-        auxL2 = auxC2 = matriz.getInicio();
-        
-        Matriz nova = new Matriz(linha, coluna);
-        int[] vetor = new int[linha * coluna];
-        int index = 0;
-
-        for(int i = 0;i < linha;i++){
-
-            auxC1 = auxL1;
-            auxC2 = auxL2;
-
-            for(int j = 0;j < coluna;j++){
-
-                vetor[index] = auxC1.getElemento() * auxC2.getElemento();
-                auxC1 = auxC1.dir;
-                auxC2 = auxC2.dir;
-                index++;
-
-            }
-
-            auxL1 = auxL1.inf;
-            auxL2 = auxL2.inf;
+            throw new IllegalArgumentException("O número de colunas da primeira matriz deve ser igual ao número de linhas da segunda matriz para multiplicação.");
 
         }
+    
+        int linhasResultado = this.linha;
+        int colunasResultado = matriz.coluna;
+    
+        int[] vetor = new int[linhasResultado * colunasResultado];
+        int index = 0;
+    
+        CelulaM auxL1 = this.inicio;
+        CelulaM auxL2;
+        CelulaM auxC1;
+        CelulaM auxC2;
+    
+        for(int i = 0; i < linhasResultado; i++){
 
+            for(int j = 0; j < colunasResultado; j++){
+
+                int soma = 0;
+    
+                auxC1 = auxL1;
+                auxL2 = matriz.inicio;
+    
+                for(int k = 0; k < this.coluna; k++){
+
+                    soma += auxC1.getElemento() * auxL2.getElemento();
+    
+                    auxC1 = auxC1.dir;
+                    auxL2 = auxL2.inf;
+
+                }
+    
+                vetor[index++] = soma;
+
+            }
+    
+            auxL1 = auxL1.inf;
+
+        }
+    
+        Matriz nova = new Matriz(linhasResultado, colunasResultado);
         nova.inserir(vetor);
-
+    
         return nova;
 
     }

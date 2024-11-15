@@ -26,6 +26,8 @@ typedef struct pokemon
 }pokemon;
 
 pokemon pokemons[801];
+int comp = 0;
+double tempo;
 
 void substring(const char *original, char *data, int length){
 
@@ -391,6 +393,7 @@ void ordenar(CelulaDupla *esq, CelulaDupla *dir, int es, int di){
 
     while(ii <= jj){
 
+        comp++;
         while(i != NULL && (i->elemento.generation <  pivot->elemento.generation || 
         (i->elemento.generation == pivot->elemento.generation && 
         strcmp(i->elemento.name, pivot->elemento.name) < 0))){
@@ -400,6 +403,7 @@ void ordenar(CelulaDupla *esq, CelulaDupla *dir, int es, int di){
 
         }
 
+        comp++;
         while(j != NULL && (j->elemento.generation >  pivot->elemento.generation || 
         (j->elemento.generation == pivot->elemento.generation && 
         strcmp(j->elemento.name, pivot->elemento.name) > 0))){
@@ -436,6 +440,25 @@ void chamarOrdenacao(){
 
 ////////////////////////////////////////////////////////////////////////////
 
+void criarLog(){
+
+    FILE* file = fopen("matrícula_quicksort2.txt","w");
+
+    if(file == NULL){
+
+        printf("ERRO!");
+        return;
+
+    }
+
+    fprintf(file, "857867 \t %lfs \t %d", tempo, comp);
+
+    fclose(file);
+
+}
+
+clock_t inicio,fim;
+
 int main(){
 
     preencherPokedex();
@@ -458,9 +481,16 @@ int main(){
 
     }while(!isFim(str));
 
+    inicio = clock();
+
     chamarOrdenacao();
 
+    fim = clock();
+    tempo = (double)(fim - inicio) / CLOCKS_PER_SEC;
+
     imprimir();
+
+    criarLog();
 
     free(str);
 
