@@ -37,8 +37,8 @@ void substring(const char *original, char *data, int length){
 
 void preencherPokedex(){
 
-    //FILE* file = fopen("/tmp/pokemon.csv","r");
-    FILE* file = fopen("../pokemon.csv","r");
+    FILE* file = fopen("/tmp/pokemon.csv","r");
+    //FILE* file = fopen("../pokemon.csv","r");
 
     if(file == NULL){
         printf("Erro!");
@@ -176,6 +176,8 @@ bool isFim(char* str){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+int comp = 0;
+
 typedef struct No{
 
     pokemon elemento;
@@ -203,6 +205,7 @@ No* raiz;
 void start(){
 
     raiz = NULL;
+    comp = 0;
 
 }
 
@@ -329,19 +332,23 @@ bool pesquisa(No* no, char* str){
 
     if(no == NULL){
 
+        comp++;
         return false;
 
     }else if(strcmp(str, no->elemento.name) == 0){
 
+        comp += 2;
         return true;
 
     }else if(strcmp(str, no->elemento.name) < 0){
 
+        comp += 3;
         printf("esq ");
         return pesquisa(no->esq, str);
 
     }else{
 
+        comp += 3;
         printf("dir ");
         return pesquisa(no->dir, str);
 
@@ -358,8 +365,28 @@ bool pesquisar(char* str){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+double tempo;
+
+void criarLog(){
+
+    FILE* file = fopen("matrícula_avl.txt","w");
+
+    if(file == NULL){
+
+        printf("ERRO!");
+        return;
+
+    }
+
+    fprintf(file, "857867 \t %lfs \t %d", tempo, comp);
+
+    fclose(file);
+
+}
+
 int main(){
 
+    clock_t inicio,fim;
     preencherPokedex();
     start();
 
@@ -385,6 +412,7 @@ int main(){
         fgets(str, 20, stdin);
         str[strcspn(str, "\n")] = 0;
 
+        inicio = clock();
         if(!isFim(str)){
 
             printf("%s\n", str);
@@ -401,8 +429,13 @@ int main(){
             }
 
         }
+        fim = clock();
 
     }while(!isFim(str));
+
+    tempo = (double)(fim - inicio) / CLOCKS_PER_SEC;
+
+    criarLog();
 
     free(str);
 

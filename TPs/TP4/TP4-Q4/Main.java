@@ -206,160 +206,264 @@ class Pokemon{
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-class No{
+class NoAN{
 
-    public int elemento;
-    public No2 arv;
-    public No esq, dir;
+    public boolean cor;
+    public Pokemon elemento;
+    public NoAN esq, dir;
 
-    public No(int elemento){
+    public NoAN(Pokemon elemento){
 
         this.elemento = elemento;
         esq = dir = null;
-        arv = null;
+        cor = false;
 
     }
 
-    public No(int elemento, No esq, No dir){
+    public NoAN(Pokemon elemento, boolean cor){
 
         this.elemento = elemento;
-        this.esq = esq;
-        this.dir = dir;
+        esq = dir = null;
+        this.cor = cor;
 
     }
 
 }
 
-class No2{
+class Alvinegra{
 
-    public String elemento;
-    public No2 esq, dir;
-
-    public No2(String elemento){
-
-        this.elemento = elemento;
-        esq = dir = null;
-
-    }
-
-}
-
-class Arvore{
-
-    public No raiz;
+    public NoAN raiz;
     public int comparacoes;
 
-    public Arvore(){
+    public Alvinegra(){
 
         raiz = null;
         comparacoes = 0;
-        construir();
 
     }
 
-    public void construir(){
+    public void inserir(Pokemon x) throws Exception{
 
-        inserir(7);
-        inserir(3);
-        inserir(11);
-        inserir(1);
-        inserir(5);
-        inserir(9);
-        inserir(13);
-        inserir(0);
-        inserir(2);
-        inserir(4);
-        inserir(6);
-        inserir(8);
-        inserir(10);
-        inserir(12);
-        inserir(14);
+        if(raiz == null){
 
-    }
+            raiz = new NoAN(x);
 
-    public void inserir(int x){
+        }else if(raiz.esq == null && raiz.dir == null){
 
-        raiz = inserir(x, raiz);
+            if(x.getName().compareTo(raiz.elemento.getName()) < 0){
 
-    }
+                raiz.esq = new NoAN(x);
 
-    private No inserir(int x, No i){
+            }else{
 
-        if(i == null){
+                raiz.dir = new NoAN(x);
 
-            i = new No(x);
+            }
 
-        }else if(x < i.elemento){
+        }else if(raiz.esq == null){
 
-            i.esq = inserir(x, i.esq);
+            if(x.getName().compareTo(raiz.elemento.getName()) < 0){
 
-        }else if(x > i.elemento){
+                raiz.esq = new NoAN(x);
 
-            i.dir = inserir(x, i.dir);
+            }else if(x.getName().compareTo(raiz.dir.elemento.getName()) < 0){
+
+                raiz.esq = new NoAN(x);
+                raiz.elemento = x;
+
+            }else{
+
+                raiz.esq = new NoAN(x);
+                raiz.elemento = raiz.dir.elemento;
+                raiz.dir.elemento = x;
+
+            }
+
+            raiz.esq.cor = raiz.dir.cor = false;
+
+        }else if(raiz.dir == null){
+
+            if(x.getName().compareTo(raiz.elemento.getName()) > 0){
+
+                raiz.dir = new NoAN(x);
+
+            }else if(x.getName().compareTo(raiz.esq.elemento.getName()) > 0){
+
+                raiz.dir = new NoAN(x);
+                raiz.elemento = x;
+
+            }else{
+
+                raiz.dir = new NoAN(x);
+                raiz.elemento = raiz.esq.elemento;
+                raiz.esq.elemento = x;
+
+            }
+
+            raiz.esq.cor = raiz.dir.cor = false;
+
+        }else{
+
+            inserir(x, null, null, null, raiz);
 
         }
 
-        return i;
+        raiz.cor = false;
 
     }
 
-    public void inserir(Pokemon x){
-
-        raiz = inserir(x, raiz);
-
-    }
-
-    private No inserir(Pokemon x, No i){
+    private void inserir(Pokemon x, NoAN bisavo, NoAN avo, NoAN pai, NoAN i) throws Exception{
 
         if(i == null){
 
-            i = new No(x.getCaptureRate() % 15);
+            if(x.getName().compareTo(pai.elemento.getName()) < 0){
 
-        }else if(x.getCaptureRate() % 15 < i.elemento){
+                i = pai.esq = new NoAN(x, true);
 
-            i.esq = inserir(x, i.esq);
+            }else{
 
-        }else if(x.getCaptureRate() % 15 > i.elemento){
+                i = pai.dir = new NoAN(x, true);
 
-            i.dir = inserir(x, i.dir);
+            }
 
-        }else if(x.getCaptureRate() % 15 == i.elemento){
+            if(pai.cor == true){
 
-            inserir2(x.getName(), i);
+                balancear(bisavo, avo, pai, i);
+
+            }
+
+        }else{
+
+            if(i.esq != null && i.dir != null && i.esq.cor == true && i.dir.cor == true){
+
+                i.cor = true;
+                i.esq.cor = i.dir.cor = false;
+
+                if(i == raiz){
+
+                    i.cor = false;
+
+                }else if(pai.cor == true){
+
+                    balancear(bisavo, avo, pai, i);
+
+                }
+
+            }
+
+            if(x.getName().compareTo(i.elemento.getName()) < 0){
+
+                inserir(x, avo, pai, i, i.esq);
+
+            }else if(x.getName().compareTo(i.elemento.getName()) > 0){
+
+                inserir(x, avo, pai, i, i.dir);
+
+            }else{
+
+                throw new Exception("Erro!");
+
+            }
 
         }
 
-        return i;
+    }
+
+    private NoAN rotacaoDir(NoAN no){
+
+        NoAN noEsq = no.esq;
+        NoAN noEsqDir = noEsq.dir;
+  
+        noEsq.dir = no;
+        no.esq = noEsqDir;
+  
+        return noEsq;
 
     }
 
-    private void inserir2(String nome, No i){
+    private NoAN rotacaoEsq(NoAN no){
 
-        i.arv = inserir2(nome, i.arv);
+        NoAN noDir = no.dir;
+        NoAN noDirEsq = noDir.esq;
+  
+        noDir.esq = no;
+        no.dir = noDirEsq;
+        return noDir;
+
+    }
+  
+    private NoAN rotacaoDirEsq(NoAN no){
+
+        no.dir = rotacaoDir(no.dir);
+        return rotacaoEsq(no);
+
+    }
+  
+    private NoAN rotacaoEsqDir(NoAN no){
+
+        no.esq = rotacaoEsq(no.esq);
+        return rotacaoDir(no);
 
     }
 
-    private No2 inserir2(String x, No2 i){
+    private void balancear(NoAN bisavo, NoAN avo, NoAN pai, NoAN i){
 
-        if(i == null){
+        if(pai.cor == true){
 
-            i = new No2(x);
+            if(pai.elemento.getName().compareTo(avo.elemento.getName()) > 0){
 
-        }else if(x.compareTo(i.elemento) < 0){
+                if(i.elemento.getName().compareTo(pai.elemento.getName()) > 0){
 
-            i.esq = inserir2(x, i.esq);
+                    avo = rotacaoEsq(avo);
 
-        }else if(x.compareTo(i.elemento) > 0){
+                }else{
 
-            i.dir = inserir2(x, i.dir);
+                    avo = rotacaoDirEsq(avo);
+
+                }
+
+            }else{
+
+                if(i.elemento.getName().compareTo(pai.elemento.getName()) < 0){
+
+                    avo = rotacaoDir(avo);
+
+                }else{
+
+                    avo = rotacaoEsqDir(avo);
+
+                }
+
+            }
+    
+            if(bisavo == null){
+
+                raiz = avo;
+
+            }else if(avo.elemento.getName().compareTo(bisavo.elemento.getName()) < 0){
+
+                bisavo.esq = avo;
+
+            }else{
+
+                bisavo.dir = avo;
+
+            }
+    
+            avo.cor = false;
+            avo.esq.cor = avo.dir.cor = true;
 
         }
 
-        return i;
+    }
+
+    public boolean pesquisar(String x){
+
+        return pesquisar(x, raiz);
 
     }
 
-    private boolean pesquisar(String x, No2 i){
+    private boolean pesquisar(String x, NoAN i){
 
         boolean resp;
 
@@ -368,66 +472,26 @@ class Arvore{
             comparacoes++;
             resp = false;
 
-        }else if(x.equals(i.elemento)){
+        }else if(x.equals(i.elemento.getName())){
 
-            comparacoes++;
-            comparacoes++;
+            comparacoes += 2;
+            resp = true;
 
-            return true;
+        }else if(x.compareTo(i.elemento.getName()) < 0){
 
-        }else if(x.compareTo(i.elemento) < 0){
-
-            comparacoes++;
-            comparacoes++;
-            comparacoes++;
-
+            comparacoes += 3;
             System.out.print("esq ");
             resp = pesquisar(x, i.esq);
 
         }else{
 
-            comparacoes++;
-            comparacoes++;
-            comparacoes++;
-
+            comparacoes += 3;
             System.out.print("dir ");
             resp = pesquisar(x, i.dir);
 
         }
 
         return resp;
-
-    }
-
-    public boolean caminharPre(String x){
-
-        return caminharPre(x, raiz);
-
-    }
-
-    private boolean caminharPre(String x, No i){
-
-        if(i == null){
-
-            return false;
-
-        }
-
-        if(pesquisar(x, i.arv)){
-
-            return true;
-
-        }
-
-        System.out.print(" ESQ ");
-        if(caminharPre(x, i.esq)){
-
-            return true;
-
-        }
-
-        System.out.print(" DIR ");
-        return caminharPre(x, i.dir);
 
     }
 
@@ -517,7 +581,7 @@ public class Main {
 
     public static void criarLog(){
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("matrícula_arvoreArvore.txt"))){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("matrícula_avinegra.txt"))){
 
             writer.write("857867" + "\t" + tempo + "ns\t" + comp);
 
@@ -533,7 +597,7 @@ public class Main {
         
         preencherPokedex();
 
-        Arvore arvore = new Arvore();
+        Alvinegra arvore = new Alvinegra();
 
         Scanner scan = new Scanner(System.in);
 
@@ -557,18 +621,18 @@ public class Main {
 
             if(!isFim(str)){
 
-                System.out.println("=> "+ str);
+                System.out.println(str);
                 System.out.print("raiz ");
 
                 long inicio = System.nanoTime();
                 
-                if(arvore.caminharPre(str)){
+                if(arvore.pesquisar(str)){
 
-                    System.out.println(" SIM");
+                    System.out.println("SIM");
 
                 }else{
 
-                    System.out.println(" NAO");
+                    System.out.println("NAO");
 
                 }
 
