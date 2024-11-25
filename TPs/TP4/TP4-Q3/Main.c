@@ -388,7 +388,7 @@ int main(){
         if(!isFim(str)){
 
             printf("%s\n", str);
-            printf("=>");
+            //printf("=>");
 
             if(pesquisar(str)){
 
