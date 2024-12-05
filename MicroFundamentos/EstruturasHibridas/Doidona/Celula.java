@@ -1,6 +1,4 @@
-/**
- * Celula
- */
+
 
 public class Celula {
 
